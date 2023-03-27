@@ -8,20 +8,22 @@ import {
 
 import * as S from "./styles";
 
+type TypeRoot = 'single' | 'multiple'
+
 interface AccordionContextProps {
   activeAccordion: number | undefined;
-  typeRoot: "single" | "multiple";
+  typeRoot: TypeRoot;
   addAccordion: (id: number) => void;
 }
 
 const AccordionContext = createContext({} as AccordionContextProps);
 
 interface RootProps {
-  type?: "single" | "multiple";
+  type: TypeRoot;
 }
 
 export function Root({
-  type = "single",
+  type,
   children,
 }: PropsWithChildren<RootProps>) {
   const [activeAccordion, setActiveAccordion] = useState<number | undefined>(
