@@ -13,7 +13,7 @@ type TypeRoot = 'single' | 'multiple'
 interface AccordionContextProps {
   activeAccordion: number | undefined;
   typeRoot: TypeRoot;
-  addAccordion: (id: number) => void;
+  addActiveAccordion: (id: number) => void;
 }
 
 const AccordionContext = createContext({} as AccordionContextProps);
@@ -31,13 +31,13 @@ export function Root({
   );
   const typeRoot = type;
 
-  function addAccordion(id: number) {
+  function addActiveAccordion(id: number) {
     setActiveAccordion(id);
   }
 
   return (
     <AccordionContext.Provider
-      value={{ activeAccordion, typeRoot, addAccordion }}
+      value={{ activeAccordion, typeRoot, addActiveAccordion }}
     >
       <S.AccordionRoot className="accordion-root" data-type={typeRoot}>
         {children}
@@ -67,12 +67,12 @@ export function Item({
 }: PropsWithChildren<ItemProps>) {
   const [accordionIsOpen, setAccordionIsOpen] = useState<boolean>(false);
 
-  const { activeAccordion, typeRoot, addAccordion } =
+  const { activeAccordion, typeRoot, addActiveAccordion } =
     useContext(AccordionContext);
 
   function handleToggleContent() {
     if (typeRoot === "single") {
-      addAccordion(id);
+      addActiveAccordion(id);
     }
 
     setAccordionIsOpen(!accordionIsOpen);
