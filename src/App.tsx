@@ -7,7 +7,7 @@ import cafe from "./assets/cafe.svg";
 function App() {
   return (
     <div className="App">
-      <Accordion.Root type="multiple">
+      <Accordion.Root type="single">
         <Accordion.Item
           id={1}
           title="Informações"

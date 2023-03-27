@@ -5,30 +5,17 @@ import {
   useEffect,
   useState,
 } from "react";
+import { AccordionContextProps, RootProps, ItemProps } from "./types";
 
 import * as S from "./styles";
 
-type TypeRoot = 'single' | 'multiple'
-
-interface AccordionContextProps {
-  activeAccordion: number | undefined;
-  typeRoot: TypeRoot;
-  addActiveAccordion: (id: number) => void;
-}
-
 const AccordionContext = createContext({} as AccordionContextProps);
 
-interface RootProps {
-  type: TypeRoot;
-}
-
-export function Root({
-  type,
-  children,
-}: PropsWithChildren<RootProps>) {
+export function Root({ type, children }: PropsWithChildren<RootProps>) {
   const [activeAccordion, setActiveAccordion] = useState<number | undefined>(
     undefined
   );
+
   const typeRoot = type;
 
   function addActiveAccordion(id: number) {
@@ -44,19 +31,6 @@ export function Root({
       </S.AccordionRoot>
     </AccordionContext.Provider>
   );
-}
-
-interface IconProps {
-  isComponent?: boolean;
-  render?: JSX.Element;
-  src?: string;
-  alt?: string;
-}
-
-interface ItemProps {
-  id: number;
-  title: string;
-  icon?: IconProps;
 }
 
 export function Item({
