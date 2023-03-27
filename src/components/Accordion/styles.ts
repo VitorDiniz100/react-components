@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-interface ContentProps {
+interface AccordionItemProps {
   isOpen: boolean
 }
 
@@ -9,23 +9,23 @@ export const AccordionRoot = styled.div`
   flex-direction: column;
 `
 
-export const AccordionItem = styled.div`
+export const AccordionItem = styled.div<AccordionItemProps>`
   display: flex;
   flex-direction: column;
 `
 
-export const AccordionHeader = styled.div`
+export const AccordionHeader = styled.div<AccordionItemProps>`
   display: block;
 `
 
-export const AccordionTrigger = styled.div`
+export const AccordionTrigger = styled.div<AccordionItemProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
 `
 
-export const AccordionContent = styled.div<ContentProps>`
+export const AccordionContent = styled.div<AccordionItemProps>`
   ${(props) =>
     props.isOpen
       ? css`

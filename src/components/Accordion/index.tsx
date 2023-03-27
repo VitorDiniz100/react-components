@@ -1,23 +1,23 @@
-import { PropsWithChildren, useContext, useEffect, useState } from "react";
-import { AccordionContext } from "./Context";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 import * as S from "./styles";
 
+interface AccordionContextProps {
+  activeAccordion: number | undefined;
+  typeRoot: "single" | "multiple";
+  addAccordion: (id: number) => void;
+}
+
+const AccordionContext = createContext({} as AccordionContextProps);
+
 interface RootProps {
   type?: "single" | "multiple";
-}
-
-interface IconProps {
-  isComponent?: boolean;
-  render?: JSX.Element;
-  src?: string;
-  alt?: string;
-}
-
-interface ItemProps {
-  id: number;
-  title: string;
-  icon?: IconProps;
 }
 
 export function Root({
@@ -37,9 +37,24 @@ export function Root({
     <AccordionContext.Provider
       value={{ activeAccordion, typeRoot, addAccordion }}
     >
-      <S.AccordionRoot className="accordion-root" data-type={typeRoot}>{children}</S.AccordionRoot>
+      <S.AccordionRoot className="accordion-root" data-type={typeRoot}>
+        {children}
+      </S.AccordionRoot>
     </AccordionContext.Provider>
   );
+}
+
+interface IconProps {
+  isComponent?: boolean;
+  render?: JSX.Element;
+  src?: string;
+  alt?: string;
+}
+
+interface ItemProps {
+  id: number;
+  title: string;
+  icon?: IconProps;
 }
 
 export function Item({
@@ -68,12 +83,13 @@ export function Item({
   }, [activeAccordion, typeRoot, id]);
 
   return (
-    <S.AccordionItem className="accordion-item">
-      <S.AccordionHeader className="accordion-header">
+    <S.AccordionItem className="accordion-item" isOpen={accordionIsOpen}>
+      <S.AccordionHeader className="accordion-header" isOpen={accordionIsOpen}>
         <S.AccordionTrigger
           className="accordion-trigger"
-          data-state={accordionIsOpen ? 'open' : 'close'}
+          data-state={accordionIsOpen ? "open" : "close"}
           onClick={handleToggleContent}
+          isOpen={accordionIsOpen}
         >
           <span>{title}</span>
           {icon && icon.isComponent ? (
