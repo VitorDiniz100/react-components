@@ -5,25 +5,25 @@ import {
   useEffect,
   useRef,
   useState,
-} from "react";
-import { RootProps, ItemProps, AccordionContextProps } from "./types";
+} from 'react'
+import { AccordionContextProps, RootProps, ItemProps } from './types'
 
-import * as S from "./styles";
+import * as S from './styles'
 
-export const AccordionContext = createContext({} as AccordionContextProps);
+const AccordionContext = createContext({} as AccordionContextProps)
 
 export function Root({
-  type = "single",
+  type = 'single',
   children,
 }: PropsWithChildren<RootProps>) {
   const [activeAccordion, setActiveAccordion] = useState<number | undefined>(
-    undefined
-  );
+    undefined,
+  )
 
-  const typeRoot = type;
+  const typeRoot = type
 
   function addActiveAccordion(id: number) {
-    setActiveAccordion(id);
+    setActiveAccordion(id)
   }
 
   return (
@@ -34,7 +34,7 @@ export function Root({
         {children}
       </S.AccordionRoot>
     </AccordionContext.Provider>
-  );
+  )
 }
 
 export function Item({
@@ -43,35 +43,35 @@ export function Item({
   icon,
   children,
 }: PropsWithChildren<ItemProps>) {
-  const [accordionIsOpen, setAccordionIsOpen] = useState<boolean>(false);
+  const [accordionIsOpen, setAccordionIsOpen] = useState<boolean>(false)
 
   const { activeAccordion, typeRoot, addActiveAccordion } =
-    useContext(AccordionContext);
+    useContext(AccordionContext)
 
-  const triggerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   function handleToggleContent() {
-    if (typeRoot === "single") {
-      addActiveAccordion(id);
+    if (typeRoot === 'single') {
+      addActiveAccordion(id)
     }
 
-    setAccordionIsOpen(!accordionIsOpen);
+    setAccordionIsOpen(!accordionIsOpen)
   }
 
   useEffect(() => {
-    if (activeAccordion !== id && typeRoot === "single") {
-      setAccordionIsOpen(false);
-      triggerRef.current?.classList.remove("active");
-      contentRef.current?.classList.remove("open");
+    if (activeAccordion !== id && typeRoot === 'single') {
+      setAccordionIsOpen(false)
+      triggerRef.current?.classList.remove('active')
+      contentRef.current?.classList.remove('open')
     }
-  }, [activeAccordion, typeRoot, id]);
+  }, [activeAccordion, typeRoot, id])
 
   return (
     <S.AccordionItem className="accordion-item" isOpen={accordionIsOpen}>
       <S.AccordionHeader className="accordion-header" isOpen={accordionIsOpen}>
         <S.AccordionTrigger
-          className={`accordion-trigger ${accordionIsOpen ? "active" : ""}`}
+          className={`accordion-trigger ${accordionIsOpen ? 'active' : ''}`}
           onClick={handleToggleContent}
           ref={triggerRef}
           isOpen={accordionIsOpen}
@@ -81,12 +81,12 @@ export function Item({
         </S.AccordionTrigger>
       </S.AccordionHeader>
       <S.AccordionContent
-        className={`accordion-content ${accordionIsOpen ? "open" : ""}`}
+        className={`accordion-content ${accordionIsOpen ? 'open' : ''}`}
         ref={contentRef}
         isOpen={accordionIsOpen}
       >
         {children}
       </S.AccordionContent>
     </S.AccordionItem>
-  );
+  )
 }
