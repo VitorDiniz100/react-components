@@ -7,21 +7,15 @@ export interface AccordionContextProps {
 }
 
 export interface RootProps {
-  type: TypeRoot;
+  type?: TypeRoot;
 }
 
-interface ComponentIcon {
+interface IconProps {
   element: JSX.Element;
-}
-
-interface ImgIcon {
-  src: string;
-  alt?: string;
 }
 
 export interface ItemProps {
   id: number;
   title: string;
-  imgIcon?: ImgIcon;
-  componentIcon?: ComponentIcon;
+  icon?: IconProps;
 }

@@ -1,10 +1,21 @@
-import { PropsWithChildren, useContext, useEffect, useState } from "react";
-import { AccordionContext } from "./Context";
-import { RootProps, ItemProps } from "./types";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { RootProps, ItemProps, AccordionContextProps } from "./types";
 
 import * as S from "./styles";
 
-export function Root({ type, children }: PropsWithChildren<RootProps>) {
+export const AccordionContext = createContext({} as AccordionContextProps);
+
+export function Root({
+  type = "single",
+  children,
+}: PropsWithChildren<RootProps>) {
   const [activeAccordion, setActiveAccordion] = useState<number | undefined>(
     undefined
   );
@@ -29,14 +40,16 @@ export function Root({ type, children }: PropsWithChildren<RootProps>) {
 export function Item({
   id,
   title,
-  componentIcon,
-  imgIcon,
+  icon,
   children,
 }: PropsWithChildren<ItemProps>) {
   const [accordionIsOpen, setAccordionIsOpen] = useState<boolean>(false);
 
   const { activeAccordion, typeRoot, addActiveAccordion } =
     useContext(AccordionContext);
+
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   function handleToggleContent() {
     if (typeRoot === "single") {
@@ -49,6 +62,8 @@ export function Item({
   useEffect(() => {
     if (activeAccordion !== id && typeRoot === "single") {
       setAccordionIsOpen(false);
+      triggerRef.current?.classList.remove("active");
+      triggerRef.current?.classList.remove("open");
     }
   }, [activeAccordion, typeRoot, id]);
 
@@ -56,20 +71,18 @@ export function Item({
     <S.AccordionItem className="accordion-item" isOpen={accordionIsOpen}>
       <S.AccordionHeader className="accordion-header" isOpen={accordionIsOpen}>
         <S.AccordionTrigger
-          className="accordion-trigger"
-          data-state={accordionIsOpen ? "open" : "close"}
+          className={`accordion-trigger ${accordionIsOpen ? "active" : ""}`}
           onClick={handleToggleContent}
+          ref={triggerRef}
           isOpen={accordionIsOpen}
         >
           <span>{title}</span>
-          {componentIcon && componentIcon.element}
-          {imgIcon && (
-            <img src={imgIcon.src} alt="teste" />
-          )}
+          {icon && icon.element}
         </S.AccordionTrigger>
       </S.AccordionHeader>
       <S.AccordionContent
-        className="accordion-content"
+        className={`accordion-content ${accordionIsOpen ? "open" : ""}`}
+        ref={contentRef}
         isOpen={accordionIsOpen}
       >
         {children}
