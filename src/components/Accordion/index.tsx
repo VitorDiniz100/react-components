@@ -39,10 +39,10 @@ export function Item({ title, icon, children }: PropsWithChildren<ItemProps>) {
   const [accordionIsOpen, setAccordionIsOpen] = useState<boolean>(false)
   const [accordionId, setAccordionId] = useState<string>('')
 
-  const id = uuid()
-
   const { activeAccordion, typeRoot, addActiveAccordion } =
     useContext(AccordionContext)
+
+  const id = uuid()
 
   function handleToggleContent() {
     if (typeRoot === 'single') {
