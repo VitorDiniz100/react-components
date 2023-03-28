@@ -6,8 +6,6 @@ export const AccordionRoot = styled.div`
   flex-direction: column;
 `
 
-
-
 export const AccordionItem = styled.div<AccordionStyledProps>`
   display: flex;
   flex-direction: column;
