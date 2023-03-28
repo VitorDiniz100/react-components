@@ -80,9 +80,7 @@ export function Item({ title, icon, children }: PropsWithChildren<ItemProps>) {
       </S.AccordionHeader>
       <S.AccordionContent
         className={
-          accordionIsOpen
-            ? 'accordion-content accordion-open'
-            : 'accordion-content'
+          accordionIsOpen ? 'accordion-content visible' : 'accordion-content'
         }
         isOpen={accordionIsOpen}
       >
