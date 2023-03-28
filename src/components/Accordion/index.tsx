@@ -3,7 +3,6 @@ import {
   PropsWithChildren,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from 'react'
 import { AccordionContextProps, RootProps, ItemProps } from './interfaces'
@@ -45,9 +44,6 @@ export function Item({ title, icon, children }: PropsWithChildren<ItemProps>) {
   const { activeAccordion, typeRoot, addActiveAccordion } =
     useContext(AccordionContext)
 
-  const triggerRef = useRef<HTMLDivElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
-
   function handleToggleContent() {
     if (typeRoot === 'single') {
       addActiveAccordion(accordionId)
@@ -63,8 +59,6 @@ export function Item({ title, icon, children }: PropsWithChildren<ItemProps>) {
 
     if (activeAccordion !== accordionId && typeRoot === 'single') {
       setAccordionIsOpen(false)
-      triggerRef.current?.classList.remove('active')
-      contentRef.current?.classList.remove('open')
     }
   }, [activeAccordion, typeRoot, accordionId, id])
 
@@ -76,9 +70,12 @@ export function Item({ title, icon, children }: PropsWithChildren<ItemProps>) {
     >
       <S.AccordionHeader className="accordion-header" isOpen={accordionIsOpen}>
         <S.AccordionTrigger
-          className={`accordion-trigger ${accordionIsOpen ? 'active' : ''}`}
+          className={
+            accordionIsOpen
+              ? 'accordion-trigger accordion-trigger-active'
+              : 'accordion-trigger'
+          }
           onClick={handleToggleContent}
-          ref={triggerRef}
           isOpen={accordionIsOpen}
         >
           <span>{title}</span>
@@ -86,10 +83,11 @@ export function Item({ title, icon, children }: PropsWithChildren<ItemProps>) {
         </S.AccordionTrigger>
       </S.AccordionHeader>
       <S.AccordionContent
-        className={`accordion-content ${
-          accordionIsOpen ? 'accordion-opened' : 'accordion-closed'
-        }`}
-        ref={contentRef}
+        className={
+          accordionIsOpen
+            ? 'accordion-content accordion-open'
+            : 'accordion-content'
+        }
         isOpen={accordionIsOpen}
       >
         {children}
