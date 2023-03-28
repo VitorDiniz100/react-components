@@ -18,17 +18,15 @@ export function Root({
 }: PropsWithChildren<RootProps>) {
   const [activeAccordion, setActiveAccordion] = useState<string>('')
 
-  const typeRoot = type
-
   function addActiveAccordion(id: string) {
     setActiveAccordion(id)
   }
 
   return (
     <AccordionContext.Provider
-      value={{ activeAccordion, typeRoot, addActiveAccordion }}
+      value={{ activeAccordion, type, addActiveAccordion }}
     >
-      <S.AccordionRoot className="accordion-root" data-type={typeRoot}>
+      <S.AccordionRoot className="accordion-root" data-type={type}>
         {children}
       </S.AccordionRoot>
     </AccordionContext.Provider>
@@ -39,13 +37,13 @@ export function Item({ title, icon, children }: PropsWithChildren<ItemProps>) {
   const [accordionIsOpen, setAccordionIsOpen] = useState<boolean>(false)
   const [accordionId, setAccordionId] = useState<string>('')
 
-  const { activeAccordion, typeRoot, addActiveAccordion } =
+  const { activeAccordion, type, addActiveAccordion } =
     useContext(AccordionContext)
 
   const id = uuid()
 
   function handleToggleContent() {
-    if (typeRoot === 'single') {
+    if (type === 'single') {
       addActiveAccordion(accordionId)
     }
 
@@ -53,14 +51,14 @@ export function Item({ title, icon, children }: PropsWithChildren<ItemProps>) {
   }
 
   useEffect(() => {
-    if (!accordionId.length && typeRoot === 'single') {
+    if (!accordionId.length && type === 'single') {
       setAccordionId(id)
     }
 
-    if (activeAccordion !== accordionId && typeRoot === 'single') {
+    if (activeAccordion !== accordionId && type === 'single') {
       setAccordionIsOpen(false)
     }
-  }, [activeAccordion, typeRoot, accordionId, id])
+  }, [activeAccordion, type, accordionId, id])
 
   return (
     <S.AccordionItem
@@ -71,9 +69,7 @@ export function Item({ title, icon, children }: PropsWithChildren<ItemProps>) {
       <S.AccordionHeader className="accordion-header" isOpen={accordionIsOpen}>
         <S.AccordionTrigger
           className={
-            accordionIsOpen
-              ? 'accordion-trigger accordion-trigger-active'
-              : 'accordion-trigger'
+            accordionIsOpen ? 'accordion-trigger active' : 'accordion-trigger'
           }
           onClick={handleToggleContent}
           isOpen={accordionIsOpen}

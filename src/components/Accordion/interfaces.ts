@@ -8,7 +8,7 @@ export interface AccordionStyledProps {
 
 export interface AccordionContextProps {
   activeAccordion: string
-  typeRoot: TypeRoot
+  type: TypeRoot
   addActiveAccordion: (id: string) => void
 }
 
