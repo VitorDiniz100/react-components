@@ -63,7 +63,7 @@ export function Item({
     if (activeAccordion !== id && typeRoot === "single") {
       setAccordionIsOpen(false);
       triggerRef.current?.classList.remove("active");
-      triggerRef.current?.classList.remove("open");
+      contentRef.current?.classList.remove("open");
     }
   }, [activeAccordion, typeRoot, id]);
 
