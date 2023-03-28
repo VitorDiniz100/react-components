@@ -1,31 +1,30 @@
 import styled, { css } from 'styled-components'
-
-interface AccordionItemProps {
-  isOpen: boolean
-}
+import { AccordionStyledProps } from './interfaces'
 
 export const AccordionRoot = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-export const AccordionItem = styled.div<AccordionItemProps>`
+
+
+export const AccordionItem = styled.div<AccordionStyledProps>`
   display: flex;
   flex-direction: column;
 `
 
-export const AccordionHeader = styled.div<AccordionItemProps>`
+export const AccordionHeader = styled.div<AccordionStyledProps>`
   display: block;
 `
 
-export const AccordionTrigger = styled.div<AccordionItemProps>`
+export const AccordionTrigger = styled.div<AccordionStyledProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
 `
 
-export const AccordionContent = styled.div<AccordionItemProps>`
+export const AccordionContent = styled.div<AccordionStyledProps>`
   ${(props) =>
     props.isOpen
       ? css`
