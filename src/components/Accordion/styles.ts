@@ -31,9 +31,11 @@ export const AccordionContent = styled.div<AccordionItemProps>`
       ? css`
           height: auto;
           opacity: 1;
+          pointer-events: auto;
         `
       : css`
           height: 0;
           opacity: 0;
+          pointer-events: none;
         `}
 `

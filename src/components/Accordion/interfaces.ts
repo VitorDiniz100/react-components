@@ -3,9 +3,9 @@ import { ReactNode } from 'react'
 type TypeRoot = 'single' | 'multiple'
 
 export interface AccordionContextProps {
-  activeAccordion: number | undefined
+  activeAccordion: string
   typeRoot: TypeRoot
-  addActiveAccordion: (id: number) => void
+  addActiveAccordion: (id: string) => void
 }
 
 export interface RootProps {
@@ -17,7 +17,6 @@ interface IconProps {
 }
 
 export interface ItemProps {
-  id: number
   title: string
   icon?: IconProps
 }

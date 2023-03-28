@@ -6,7 +6,8 @@ import {
   useRef,
   useState,
 } from 'react'
-import { AccordionContextProps, RootProps, ItemProps } from './types'
+import { AccordionContextProps, RootProps, ItemProps } from './interfaces'
+import uuid from 'react-uuid'
 
 import * as S from './styles'
 
@@ -16,13 +17,11 @@ export function Root({
   type = 'single',
   children,
 }: PropsWithChildren<RootProps>) {
-  const [activeAccordion, setActiveAccordion] = useState<number | undefined>(
-    undefined,
-  )
+  const [activeAccordion, setActiveAccordion] = useState<string>('')
 
   const typeRoot = type
 
-  function addActiveAccordion(id: number) {
+  function addActiveAccordion(id: string) {
     setActiveAccordion(id)
   }
 
@@ -37,13 +36,11 @@ export function Root({
   )
 }
 
-export function Item({
-  id,
-  title,
-  icon,
-  children,
-}: PropsWithChildren<ItemProps>) {
+export function Item({ title, icon, children }: PropsWithChildren<ItemProps>) {
   const [accordionIsOpen, setAccordionIsOpen] = useState<boolean>(false)
+  const [accordionId, setAccordionId] = useState<string>('')
+
+  const id = uuid()
 
   const { activeAccordion, typeRoot, addActiveAccordion } =
     useContext(AccordionContext)
@@ -53,22 +50,30 @@ export function Item({
 
   function handleToggleContent() {
     if (typeRoot === 'single') {
-      addActiveAccordion(id)
+      addActiveAccordion(accordionId)
     }
 
     setAccordionIsOpen(!accordionIsOpen)
   }
 
   useEffect(() => {
-    if (activeAccordion !== id && typeRoot === 'single') {
+    if (!accordionId.length && typeRoot === 'single') {
+      setAccordionId(id)
+    }
+
+    if (activeAccordion !== accordionId && typeRoot === 'single') {
       setAccordionIsOpen(false)
       triggerRef.current?.classList.remove('active')
       contentRef.current?.classList.remove('open')
     }
-  }, [activeAccordion, typeRoot, id])
+  }, [activeAccordion, typeRoot, accordionId, id])
 
   return (
-    <S.AccordionItem className="accordion-item" isOpen={accordionIsOpen}>
+    <S.AccordionItem
+      className="accordion-item"
+      data-state={accordionIsOpen ? 'open' : 'close'}
+      isOpen={accordionIsOpen}
+    >
       <S.AccordionHeader className="accordion-header" isOpen={accordionIsOpen}>
         <S.AccordionTrigger
           className={`accordion-trigger ${accordionIsOpen ? 'active' : ''}`}
@@ -81,7 +86,9 @@ export function Item({
         </S.AccordionTrigger>
       </S.AccordionHeader>
       <S.AccordionContent
-        className={`accordion-content ${accordionIsOpen ? 'open' : ''}`}
+        className={`accordion-content ${
+          accordionIsOpen ? 'accordion-opened' : 'accordion-closed'
+        }`}
         ref={contentRef}
         isOpen={accordionIsOpen}
       >

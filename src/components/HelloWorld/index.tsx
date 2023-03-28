@@ -1,11 +1,11 @@
 interface HelloWorldProps {
-  text: string;
+  text: string
 }
 
 export default function HelloWorld({ text }: HelloWorldProps) {
-  return <>{text}</>;
+  return <>{text}</>
 }
 
 HelloWorld.defaultProps = {
-  text: "Hello World",
-};
+  text: 'Hello World',
+}
