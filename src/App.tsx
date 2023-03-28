@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   return (
     <div className="App">
-      <Accordion.Root type="single">
+      <Accordion.Root type="multiple">
         <Accordion.Item title="Informações" icon={{ element: <Trash /> }}>
           <p>Oi</p>
         </Accordion.Item>
