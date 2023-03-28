@@ -10,15 +10,18 @@ export interface RootProps {
   type: TypeRoot;
 }
 
-interface IconProps {
-  isComponent?: boolean;
-  render?: JSX.Element;
-  src?: string;
+interface ComponentIcon {
+  element: JSX.Element;
+}
+
+interface ImgIcon {
+  src: string;
   alt?: string;
 }
 
 export interface ItemProps {
   id: number;
   title: string;
-  icon?: IconProps;
+  imgIcon?: ImgIcon;
+  componentIcon?: ComponentIcon;
 }

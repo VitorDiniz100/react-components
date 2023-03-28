@@ -1,15 +1,8 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { AccordionContextProps, RootProps, ItemProps } from "./types";
+import { PropsWithChildren, useContext, useEffect, useState } from "react";
+import { AccordionContext } from "./Context";
+import { RootProps, ItemProps } from "./types";
 
 import * as S from "./styles";
-
-const AccordionContext = createContext({} as AccordionContextProps);
 
 export function Root({ type, children }: PropsWithChildren<RootProps>) {
   const [activeAccordion, setActiveAccordion] = useState<number | undefined>(
@@ -36,7 +29,8 @@ export function Root({ type, children }: PropsWithChildren<RootProps>) {
 export function Item({
   id,
   title,
-  icon,
+  componentIcon,
+  imgIcon,
   children,
 }: PropsWithChildren<ItemProps>) {
   const [accordionIsOpen, setAccordionIsOpen] = useState<boolean>(false);
@@ -68,10 +62,9 @@ export function Item({
           isOpen={accordionIsOpen}
         >
           <span>{title}</span>
-          {icon && icon.isComponent ? (
-            icon.render
-          ) : (
-            <img src={icon?.src} alt={icon?.alt} />
+          {componentIcon && componentIcon.element}
+          {imgIcon && (
+            <img src={imgIcon.src} alt="teste" />
           )}
         </S.AccordionTrigger>
       </S.AccordionHeader>
