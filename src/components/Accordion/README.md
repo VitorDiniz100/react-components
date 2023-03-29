@@ -95,7 +95,7 @@ export function App() {
 
 ### Exemplo 3:
 
-Neste exemplo temos três acordeões sendo o primeiro, igual ao exemplo 1, o segundo igual ao exemplo 2, e o terceiro está com a configuração para abrir múltiplos acordeões, e renderizar outro elemento enquanto ativo.
+Neste exemplo temos três acordeões sendo o primeiro, igual ao exemplo 1, o segundo igual ao exemplo 2, e o terceiro está com a configuração para abrir múltiplos acordeões (Root), e renderizar outro elemento enquanto ativo.
 
 ```js
 import * as Accordion from "../../components/Accordion";
