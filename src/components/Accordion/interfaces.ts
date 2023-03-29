@@ -2,12 +2,10 @@ import { ReactNode } from 'react'
 
 type TypeRoot = 'single' | 'multiple'
 
-interface SlideProps {
-  duration: number
-}
+type SlideDuration = number
 
 interface IconProps {
-  element: ReactNode
+  defaultElement: ReactNode
   activeElement?: ReactNode
   rotateElement?: boolean
 }
@@ -23,7 +21,7 @@ export interface AccordionTriggerStyledProps extends AccordionItemStyledProps {
 
 export interface AccordionContentStyledProps extends AccordionItemStyledProps {
   contentHeight: number
-  slide: SlideProps
+  slideDuration: SlideDuration
 }
 
 export interface AccordionContextProps {
@@ -39,5 +37,5 @@ export interface RootProps {
 export interface ItemProps {
   name: string
   icon?: IconProps
-  slide?: SlideProps
+  slideDuration?: SlideDuration
 }

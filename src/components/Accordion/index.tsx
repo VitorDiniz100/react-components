@@ -37,7 +37,7 @@ export function Root({
 export function Item({
   name,
   icon,
-  slide = { duration: 400 },
+  slideDuration = 400,
   children,
 }: PropsWithChildren<ItemProps>) {
   const [firstRender, setFirstRender] = useState<boolean>(false)
@@ -97,7 +97,7 @@ export function Item({
           <span>{name}</span>
           {icon && icon.activeElement && accordionIsOpen
             ? icon.activeElement
-            : icon?.element}
+            : icon?.defaultElement}
         </S.AccordionTrigger>
       </S.AccordionHeader>
       <S.AccordionContent
@@ -108,7 +108,7 @@ export function Item({
         firstRender={firstRender}
         isOpen={accordionIsOpen}
         contentHeight={accordionContentHeight}
-        slide={{ duration: slide.duration }}
+        slideDuration={slideDuration}
       >
         {children}
       </S.AccordionContent>
