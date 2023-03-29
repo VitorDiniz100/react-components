@@ -2,8 +2,28 @@ import { ReactNode } from 'react'
 
 type TypeRoot = 'single' | 'multiple'
 
-export interface AccordionStyledProps {
+interface SlideProps {
+  duration: number
+}
+
+interface IconProps {
+  element: ReactNode
+  activeElement?: ReactNode
+  rotateElement?: boolean
+}
+
+export interface AccordionItemStyledProps {
+  firstRender: boolean
   isOpen: boolean
+}
+
+export interface AccordionTriggerStyledProps extends AccordionItemStyledProps {
+  icon?: IconProps
+}
+
+export interface AccordionContentStyledProps extends AccordionItemStyledProps {
+  contentHeight: number
+  slide: SlideProps
 }
 
 export interface AccordionContextProps {
@@ -16,11 +36,8 @@ export interface RootProps {
   type?: TypeRoot
 }
 
-interface IconProps {
-  element: ReactNode
-}
-
 export interface ItemProps {
-  title: string
+  name: string
   icon?: IconProps
+  slide?: SlideProps
 }
