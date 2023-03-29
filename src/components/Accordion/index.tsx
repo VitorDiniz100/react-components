@@ -65,7 +65,7 @@ export function Item({
     if (!firstRender && contentRef.current) {
       setFirstRender(true)
       setAccordionIsOpen(false)
-      setAccordionContentHeight(contentRef.current?.clientHeight)
+      setAccordionContentHeight(contentRef.current.clientHeight)
     }
   }, [firstRender])
 
