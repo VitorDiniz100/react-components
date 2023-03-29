@@ -35,7 +35,7 @@ export interface RootProps {
 }
 
 export interface ItemProps {
-  name: string
+  title: string
   icon?: IconProps
   slideDuration?: SlideDuration
 }

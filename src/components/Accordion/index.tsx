@@ -35,7 +35,7 @@ export function Root({
 }
 
 export function Item({
-  name,
+  title,
   icon,
   slideDuration = 400,
   children,
@@ -94,7 +94,7 @@ export function Item({
           icon={icon}
           onClick={handleToggleContent}
         >
-          <span>{name}</span>
+          <span>{title}</span>
           {icon && icon.activeElement && accordionIsOpen
             ? icon.activeElement
             : icon?.defaultElement}
