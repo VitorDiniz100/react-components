@@ -19,7 +19,7 @@ Este componente precisa **_envolver_** todos os componentes **Item**.
 
 ## Item
 
-Este componente é o próprio acordeão onde vamos envolver nosso conteúdo.
+Este componente é o próprio acordeão onde iremos **_envolver_** nosso **conteúdo**.
 
 ### Props
 
