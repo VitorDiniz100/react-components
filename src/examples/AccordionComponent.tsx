@@ -1,10 +1,10 @@
-import * as Accordion from '../../components/Accordion'
+import * as Accordion from '../components/Accordion'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { BsChevronDown } from 'react-icons/bs'
 
-import './styles.css'
+import './AccordionComponent.css'
 
-export function Home() {
+export function AccordionComponent() {
   return (
     <main className="home">
       <Accordion.Root>

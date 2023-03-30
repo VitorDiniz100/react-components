@@ -6,9 +6,9 @@
 
 .App {
     width: 1440px;
+    margin: 0 auto;
 }
 
-img {
-    width: 15px;
-    height: 15px;
+.heading-example {
+    margin-bottom: 10px;
 }
