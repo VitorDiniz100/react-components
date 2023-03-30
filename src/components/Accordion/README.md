@@ -33,7 +33,7 @@ Este componente é o próprio acordeão onde iremos **_envolver_** nosso **conte
 | ----------- | ----------- | ------------------------------------------------------------------------ |
 | render      | JSX.Element | Componente renderizado quando o acordeão não estiver ativo (Obrigatório) |
 | active      | JSX.Element | Componente renderizado quando o acordeão estiver ativo                   |
-| rotate      | boolean     | Rotação do Componente na ativação/desativação.                           |
+| rotate      | boolean     | Rotação do componente na ativação/desativação.                           |
 
 **Nota:** Só usaremos um dos efeitos para quando o acordeão ativar/desativar, active ou rotate.
 
