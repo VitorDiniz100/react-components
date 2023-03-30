@@ -4,15 +4,11 @@ import {
   AccordionTriggerStyledProps,
 } from './interfaces'
 
-const AccordionFlexCol = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-export const AccordionRoot = styled(AccordionFlexCol)``
+export const AccordionRoot = styled.div``
 
-export const AccordionItem = styled(AccordionFlexCol)``
+export const AccordionItem = styled.div``
 
-export const AccordionHeader = styled(AccordionFlexCol)``
+export const AccordionHeader = styled.div``
 
 export const AccordionTrigger = styled.button<AccordionTriggerStyledProps>`
   all: unset;
@@ -33,10 +29,10 @@ export const AccordionTrigger = styled.button<AccordionTriggerStyledProps>`
   }
 `
 
-export const AccordionBody = styled(
-  AccordionFlexCol,
-)<AccordionContentStyledProps>`
+export const AccordionBody = styled.div<AccordionContentStyledProps>`
   height: 0;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   transition: height ${(props) => props.slideDuration}ms;
 
