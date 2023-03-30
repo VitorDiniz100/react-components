@@ -1,5 +1,7 @@
 # Accordion
 
+Acordeão dinâmico com controle predefinido.
+
 ### Componentes
 
 ## Root
