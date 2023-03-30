@@ -35,7 +35,7 @@ Este componente é o próprio acordeão onde vamos envolver nosso conteúdo.
 | activeElement  | ReactNode | Elemento renderizado quando o acordeão estiver ativo                   |
 | rotateElement  | boolean   | Rotação do elemento na ativação/desativação.                           |
 
-**Nota:** Só usaremos um dos efeitos de ativar/desativar o acordeão, activeElement ou rotateElement.
+**Nota:** Só usaremos um dos efeitos para quando o acordeão ativar/desativar, activeElement ou rotateElement.
 
 ---
 
