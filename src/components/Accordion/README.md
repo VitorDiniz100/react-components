@@ -67,10 +67,11 @@ export function App() {
 
 ### Exemplo 2:
 
-Neste exemplo estamos usando dois acordeões, sendo o primeiro, igual ao exemplo 1, e o segundo está com uma duração no slide de 600ms, e está fazendo a rotação do ícone enquanto ativa e desativa.
+Neste exemplo estamos usando dois acordeões, sendo o primeiro, com a rotação do ícone ativa, e uma duração no slide de 600ms. O segundo está renderizando outro ícone enquanto ativo.
 
 ```js
 import * as Accordion from "../../components/Accordion";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { BsChevronDown } from "react-icons/bs";
 
 export function App() {
@@ -78,17 +79,20 @@ export function App() {
     <Accordion.Root>
       <Accordion.Item
         title="Informações 1"
-        icon={{ defaultElement: <BsChevronDown /> }}
-      >
-        <div>Conteúdo da informação 1</div>
-      </Accordion.Item>
-      <Accordion.Item
-        title="Informações 2"
         icon={{
           defaultElement: <BsChevronDown />,
           rotateElement: true,
         }}
         slideDuration={600}
+      >
+        <div>Conteúdo da informação 1</div>
+      </Accordion.Item>
+      <Accordion.Item
+        name="Informações 2"
+        icon={{
+          defaultElement: <AiOutlinePlus />,
+          activeElement: <AiOutlineMinus />,
+        }}
       >
         <div>Conteúdo da informação 2</div>
       </Accordion.Item>
@@ -99,7 +103,7 @@ export function App() {
 
 ### Exemplo 3:
 
-Neste exemplo temos três acordeões sendo o primeiro, igual ao exemplo 1, o segundo igual ao exemplo 2, e o terceiro está com a configuração para abrir múltiplos acordeões (Root), e renderizar outro elemento enquanto ativo.
+Este exemplo é igual ao exemplo 2, exceto pelo fato que poderemos abrir múltiplos acordeões, prop passada no Root.
 
 ```js
 import * as Accordion from "../../components/Accordion";
@@ -111,28 +115,22 @@ export function App() {
     <Accordion.Root type="multiple">
       <Accordion.Item
         title="Informações 1"
-        icon={{ defaultElement: <BsChevronDown /> }}
-      >
-        <div>Conteúdo da informação 1</div>
-      </Accordion.Item>
-      <Accordion.Item
-        title="Informações 2"
         icon={{
           defaultElement: <BsChevronDown />,
           rotateElement: true,
         }}
         slideDuration={600}
       >
-        <div>Conteúdo da informação 2</div>
+        <div>Conteúdo da informação 1</div>
       </Accordion.Item>
       <Accordion.Item
-        name="Informações 3"
+        name="Informações 2"
         icon={{
           defaultElement: <AiOutlinePlus />,
           activeElement: <AiOutlineMinus />,
         }}
       >
-        <div>Conteúdo da informação 3</div>
+        <div>Conteúdo da informação 2</div>
       </Accordion.Item>
     </Accordion.Root>
   );
