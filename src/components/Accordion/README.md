@@ -12,10 +12,10 @@ Este componente precisa **_envolver_** todos os componentes **Item**.
 
 **type: String**
 
-| Valor    | Descrição                                      |
-| -------- | ---------------------------------------------- |
-| single   | Apenas um acordeão poderá ser aberto (Default) |
-| multiple | Mútiplos acordeões poderão ser abertos         |
+| Valor    | Descrição                                              |
+| -------- | ------------------------------------------------------ |
+| single   | Apenas um acordeão poderá ser aberto por vez (Default) |
+| multiple | Mútiplos acordeões poderão ser abertos                 |
 
 ## Item
 
@@ -33,7 +33,9 @@ Este componente é o próprio acordeão onde vamos envolver nosso conteúdo.
 | -------------- | --------- | ---------------------------------------------------------------------- |
 | defaultElement | ReactNode | Elemento renderizado quando o acordeão não estiver ativo (Obrigatório) |
 | activeElement  | ReactNode | Elemento renderizado quando o acordeão estiver ativo                   |
-| rotateElement  | boolean   | Rotação do elemento.                                                   |
+| rotateElement  | boolean   | Rotação do elemento na ativação/desativação.                           |
+
+**Nota:** Só usaremos um dos efeitos de ativar/desativar o acordeão, activeElement ou rotateElement.
 
 ---
 
