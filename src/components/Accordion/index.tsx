@@ -100,9 +100,9 @@ export function Item({
             : icon?.defaultElement}
         </S.AccordionTrigger>
       </S.AccordionHeader>
-      <S.AccordionContent
+      <S.AccordionBody
         className={
-          accordionIsOpen ? 'accordion-content visible' : 'accordion-content'
+          accordionIsOpen ? 'accordion-body visible' : 'accordion-body'
         }
         ref={contentRef}
         firstRender={firstRender}
@@ -111,7 +111,7 @@ export function Item({
         slideDuration={slideDuration}
       >
         {children}
-      </S.AccordionContent>
+      </S.AccordionBody>
     </S.AccordionItem>
   )
 }

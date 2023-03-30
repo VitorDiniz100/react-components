@@ -10,8 +10,7 @@ export function Home() {
       <Accordion.Root>
         <Accordion.Item
           title="Informações 1"
-          icon={{ defaultElement: <BsChevronDown /> }}
-          slideDuration={1000}
+          icon={{ defaultElement: <BsChevronDown />, rotateElement: true }}
         >
           <div>
             <p>
@@ -43,8 +42,8 @@ export function Home() {
         <Accordion.Item
           title="Informações 3"
           icon={{
-            defaultElement: <AiOutlinePlus />,
-            activeElement: <AiOutlineMinus />,
+            defaultElement: <BsChevronDown />,
+            rotateElement: true,
           }}
         >
           <div>
@@ -72,8 +71,11 @@ export function Home() {
       <Accordion.Root type="multiple">
         <Accordion.Item
           title="Informações 1"
-          icon={{ defaultElement: <BsChevronDown /> }}
-          slideDuration={1000}
+          icon={{
+            defaultElement: <AiOutlinePlus />,
+            activeElement: <AiOutlineMinus />,
+          }}
+          slideDuration={800}
         >
           <div>
             <p>
@@ -85,7 +87,11 @@ export function Home() {
         </Accordion.Item>
         <Accordion.Item
           title="Informações 2"
-          icon={{ defaultElement: <BsChevronDown />, rotateElement: true }}
+          icon={{
+            defaultElement: <AiOutlinePlus />,
+            activeElement: <AiOutlineMinus />,
+          }}
+          slideDuration={800}
         >
           <div>
             <p>
@@ -108,6 +114,7 @@ export function Home() {
             defaultElement: <AiOutlinePlus />,
             activeElement: <AiOutlineMinus />,
           }}
+          slideDuration={800}
         >
           <div>
             <p>

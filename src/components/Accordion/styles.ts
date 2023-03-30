@@ -8,23 +8,17 @@ const AccordionFlexCol = styled.div`
   display: flex;
   flex-direction: column;
 `
-
-const AccordionFlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
 export const AccordionRoot = styled(AccordionFlexCol)``
 
 export const AccordionItem = styled(AccordionFlexCol)``
 
 export const AccordionHeader = styled(AccordionFlexCol)``
 
-export const AccordionTrigger = styled(
-  AccordionFlexRow,
-)<AccordionTriggerStyledProps>`
+export const AccordionTrigger = styled.button<AccordionTriggerStyledProps>`
+  all: unset;
   display: flex;
   flex-direction: row;
+  align-items: center;
   cursor: pointer;
 
   svg {
@@ -39,7 +33,7 @@ export const AccordionTrigger = styled(
   }
 `
 
-export const AccordionContent = styled(
+export const AccordionBody = styled(
   AccordionFlexCol,
 )<AccordionContentStyledProps>`
   height: 0;
