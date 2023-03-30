@@ -95,9 +95,7 @@ export function Item({
           onClick={handleToggleContent}
         >
           <span>{title}</span>
-          {icon && icon.activeElement && accordionIsOpen
-            ? icon.activeElement
-            : icon?.defaultElement}
+          {icon && icon.active && accordionIsOpen ? icon.active : icon?.render}
         </S.AccordionTrigger>
       </S.AccordionHeader>
       <S.AccordionBody

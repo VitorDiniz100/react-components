@@ -29,13 +29,13 @@ Este componente é o próprio acordeão onde vamos envolver nosso conteúdo.
 
 **icon: Object**
 
-| Propriedade    | Valor     | Descrição                                                              |
-| -------------- | --------- | ---------------------------------------------------------------------- |
-| defaultElement | ReactNode | Elemento renderizado quando o acordeão não estiver ativo (Obrigatório) |
-| activeElement  | ReactNode | Elemento renderizado quando o acordeão estiver ativo                   |
-| rotateElement  | boolean   | Rotação do elemento na ativação/desativação.                           |
+| Propriedade | Valor       | Descrição                                                                |
+| ----------- | ----------- | ------------------------------------------------------------------------ |
+| render      | JSX.Element | Componente renderizado quando o acordeão não estiver ativo (Obrigatório) |
+| active      | JSX.Element | Componente renderizado quando o acordeão estiver ativo                   |
+| rotate      | boolean     | Rotação do Componente na ativação/desativação.                           |
 
-**Nota:** Só usaremos um dos efeitos para quando o acordeão ativar/desativar, activeElement ou rotateElement.
+**Nota:** Só usaremos um dos efeitos para quando o acordeão ativar/desativar, active ou rotate.
 
 ---
 
@@ -56,7 +56,7 @@ export function App() {
     <Accordion.Root>
       <Accordion.Item
         title="Informações 1"
-        icon={{ defaultElement: <BsChevronDown /> }}
+        icon={{ render: <BsChevronDown /> }}
       >
         <div>Conteúdo da informação 1</div>
       </Accordion.Item>
@@ -80,8 +80,8 @@ export function App() {
       <Accordion.Item
         title="Informações 1"
         icon={{
-          defaultElement: <BsChevronDown />,
-          rotateElement: true,
+          render: <BsChevronDown />,
+          rotate: true,
         }}
         slideDuration={600}
       >
@@ -90,8 +90,8 @@ export function App() {
       <Accordion.Item
         name="Informações 2"
         icon={{
-          defaultElement: <AiOutlinePlus />,
-          activeElement: <AiOutlineMinus />,
+          render: <AiOutlinePlus />,
+          active: <AiOutlineMinus />,
         }}
       >
         <div>Conteúdo da informação 2</div>
@@ -116,8 +116,8 @@ export function App() {
       <Accordion.Item
         title="Informações 1"
         icon={{
-          defaultElement: <BsChevronDown />,
-          rotateElement: true,
+          render: <BsChevronDown />,
+          rotate: true,
         }}
         slideDuration={600}
       >
@@ -126,8 +126,8 @@ export function App() {
       <Accordion.Item
         name="Informações 2"
         icon={{
-          defaultElement: <AiOutlinePlus />,
-          activeElement: <AiOutlineMinus />,
+          render: <AiOutlinePlus />,
+          active: <AiOutlineMinus />,
         }}
       >
         <div>Conteúdo da informação 2</div>

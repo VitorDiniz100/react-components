@@ -21,7 +21,7 @@ export const AccordionTrigger = styled.button<AccordionTriggerStyledProps>`
     transition: transform 0.2s;
 
     ${(props) =>
-      props.isOpen && props.icon?.rotateElement
+      props.isOpen && props.icon?.rotate
         ? css`
             transform: rotate(-180deg);
           `

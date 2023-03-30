@@ -1,13 +1,11 @@
-import { ReactNode } from 'react'
-
 type TypeRoot = 'single' | 'multiple'
 
 type SlideDuration = number
 
 interface IconProps {
-  defaultElement: ReactNode
-  activeElement?: ReactNode
-  rotateElement?: boolean
+  render: JSX.Element
+  active?: JSX.Element
+  rotate?: boolean
 }
 
 export interface AccordionItemStyledProps {
