@@ -37,12 +37,12 @@ export function Item({
   children,
 }: PropsWithChildren<ItemProps>) {
   const [id, setId] = useState<string>('')
-  const [contentHeight, setContentHeight] = useState<number>(0)
+  const [bodyHeight, setBodyHeight] = useState<number>(0)
   const [isOpen, setIsOpen] = useState<boolean>(true)
 
   const { activeAccordion, type, addActiveAccordion } = useContext(Context)
 
-  const contentRef = useRef<HTMLDivElement>(null)
+  const bodyRef = useRef<HTMLDivElement>(null)
 
   const generatedId = uuid()
 
@@ -63,11 +63,11 @@ export function Item({
       setIsOpen(false)
     }
 
-    if (contentHeight === 0 && contentRef.current) {
-      setContentHeight(contentRef.current.clientHeight)
+    if (bodyHeight === 0 && bodyRef.current) {
+      setBodyHeight(bodyRef.current.clientHeight)
       setIsOpen(false)
     }
-  }, [activeAccordion, contentHeight, type, id, generatedId])
+  }, [activeAccordion, bodyHeight, type, id, generatedId])
 
   return (
     <S.Item className="accordion-item" data-state={isOpen ? 'open' : 'close'}>
@@ -96,9 +96,9 @@ export function Item({
       </S.Header>
       <S.Body
         className={isOpen ? 'accordion-body visible' : 'accordion-body'}
-        ref={contentRef}
+        ref={bodyRef}
         isOpen={isOpen}
-        contentHeight={contentHeight}
+        bodyHeight={bodyHeight}
         slideDuration={slideDuration}
       >
         {children}

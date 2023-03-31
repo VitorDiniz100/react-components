@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { ContentStyledProps, TriggerStyledProps } from './interfaces'
+import { BodyStyledProps, TriggerStyledProps } from './interfaces'
 
 const BaseContainer = styled.div`
   display: flex;
@@ -41,13 +41,13 @@ export const Title = styled.span`
   font-size: 1rem;
 `
 
-export const Body = styled(BaseContainer)<ContentStyledProps>`
+export const Body = styled(BaseContainer)<BodyStyledProps>`
   height: 0;
   overflow: hidden;
   transition: height ${(props) => props.slideDuration}ms;
 
   ${(props) => {
-    if (props.contentHeight === 0) {
+    if (props.bodyHeight === 0) {
       return css`
         height: auto;
       `
@@ -55,7 +55,7 @@ export const Body = styled(BaseContainer)<ContentStyledProps>`
 
     if (props.isOpen) {
       return css`
-        height: ${props.contentHeight}px;
+        height: ${props.bodyHeight}px;
       `
     }
   }}

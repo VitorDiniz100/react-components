@@ -20,8 +20,8 @@ export interface TriggerStyledProps extends ItemStyledProps {
   icon?: IconProps
 }
 
-export interface ContentStyledProps extends ItemStyledProps {
-  contentHeight: number
+export interface BodyStyledProps extends ItemStyledProps {
+  bodyHeight: number
   slideDuration: SlideDuration
 }
 

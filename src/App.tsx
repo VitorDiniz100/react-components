@@ -1,13 +1,7 @@
-import { AccordionComponent } from './examples/AccordionComponent'
-
 import './App.css'
 
 function App() {
-  return (
-    <div className="App">
-      <AccordionComponent />
-    </div>
-  )
+  return <div className="App"></div>
 }
 
 export default App
