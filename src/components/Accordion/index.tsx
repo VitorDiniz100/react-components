@@ -86,7 +86,9 @@ export function Item({
           icon={icon}
           onClick={handleToggleContent}
         >
-          <span className="accordion-title">{title}</span>
+          <S.AccordionTitle className="accordion-title">
+            {title}
+          </S.AccordionTitle>
 
           {icon?.type === 'html' && icon.src && (
             <img
