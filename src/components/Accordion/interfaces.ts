@@ -9,6 +9,7 @@ interface IconProps {
   src?: string
   activeSrc?: string
   rotate?: boolean
+  rotateTime?: number
 }
 
 export interface AccordionItemStyledProps {

@@ -19,7 +19,9 @@ export const AccordionTrigger = styled.button<AccordionTriggerStyledProps>`
 
   svg,
   img {
-    transition: transform 0.2s;
+    transition: transform
+      ${(props) =>
+        props.icon?.rotateTime ? `${props.icon.rotateTime}ms` : '200ms'};
 
     ${(props) =>
       props.isOpen &&

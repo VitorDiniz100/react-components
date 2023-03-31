@@ -29,14 +29,15 @@ Este componente é o próprio acordeão onde iremos **_envolver_** nosso **conte
 
 **icon: Object**
 
-| Propriedade     | Valor       | Descrição                                                                                                             |
-| --------------- | ----------- | --------------------------------------------------------------------------------------------------------------------- |
-| type            | html, jsx   | Indica o elemento à ser usado como ícone (Obrigatório)                                                                |
-| component       | JSX.Element | Componente renderizado quando o acordeão não estiver ativo                                                            |
-| activeComponent | JSX.Element | Componente renderizado quando o acordeão estiver ativo                                                                |
-| src             | string      | Caminho da imagem à ser renderizada quando o acordeão não estiver ativo                                               |
-| activeSrc       | string      | Caminho da imagem à ser renderizada quando o acordeão estiver ativo                                                   |
-| rotate          | boolean     | Rotação do componente na ativação e desativação. So funcinará se o acordeão não renderizar outro ícone enquanto ativo |
+| Propriedade     | Valor       | Descrição                                                                                                           |
+| --------------- | ----------- | ------------------------------------------------------------------------------------------------------------------- |
+| type            | html, jsx   | Indica o elemento à ser usado como ícone (Obrigatório)                                                              |
+| component       | JSX.Element | Componente renderizado quando o acordeão não estiver ativo                                                          |
+| activeComponent | JSX.Element | Componente renderizado quando o acordeão estiver ativo                                                              |
+| src             | string      | Caminho da imagem à ser renderizada quando o acordeão não estiver ativo                                             |
+| activeSrc       | string      | Caminho da imagem à ser renderizada quando o acordeão estiver ativo                                                 |
+| rotate          | boolean     | Rotação do elemento na ativação e desativação. So funcinará se o acordeão não renderizar outro ícone enquanto ativo |
+| rotateTime      | number      | Tempo de rotação do elemento em milissegundos. Default: 200ms                                                       |
 
 ---
 
@@ -46,11 +47,13 @@ Este componente é o próprio acordeão onde iremos **_envolver_** nosso **conte
 
 ### Exemplo 1:
 
-Neste exemplo estamos usando um acordeão com um ícone e animação de rotação.
+Neste exemplo somente um acordeão poderá ser aberto por vez.
 
 ```js
 import * as Accordion from "./components/Accordion";
 import chevronDown from "./assets/chevron-down.svg";
+import minus from "./assets/minus.svg";
+import plus from "./assets/plus.svg";
 
 export function AccordionExample() {
   return (
@@ -67,23 +70,6 @@ export function AccordionExample() {
           </p>
         </div>
       </Accordion.Item>
-    </Accordion.Root>
-  );
-}
-```
-
-### Exemplo 2:
-
-Neste exemplo estamos usando um acordeão com ícones diferentes.
-
-```js
-import * as Accordion from "./components/Accordion";
-import minus from "./assets/minus.svg";
-import plus from "./assets/plus.svg";
-
-export function AccordionExample() {
-  return (
-    <Accordion.Root>
       <Accordion.Item
         title="Lorem ipsum"
         icon={{ type: "html", src: plus, activeSrc: minus }}
@@ -101,9 +87,9 @@ export function AccordionExample() {
 }
 ```
 
-### Exemplo 3:
+### Exemplo 2:
 
-Neste exemplo usamos a funcionalidade de múltiplos acordeões e ícones como componentes.
+Neste exemplo mútiplos acordeões poderão ser abertos.
 
 ```js
 import * as Accordion from "./components/Accordion";
@@ -113,6 +99,23 @@ import Plus from "./components/Icons/Plus";
 export function AccordionExample() {
   return (
     <Accordion.Root type="multiple">
+      <Accordion.Item
+        title="Lorem ipsum"
+        icon={{
+          type: "jsx",
+          component: <Plus />,
+          rotate: true,
+          rotateTime: 400,
+        }}
+      >
+        <div className="content">
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
+          </p>
+        </div>
+      </Accordion.Item>
       <Accordion.Item
         title="Lorem ipsum"
         icon={{
