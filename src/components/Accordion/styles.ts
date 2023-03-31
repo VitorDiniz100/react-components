@@ -17,11 +17,15 @@ export const AccordionTrigger = styled.button<AccordionTriggerStyledProps>`
   align-items: center;
   cursor: pointer;
 
-  svg {
+  svg,
+  img {
     transition: transform 0.2s;
 
     ${(props) =>
-      props.isOpen && props.icon?.rotate
+      props.isOpen &&
+      props.icon?.rotate &&
+      !props.icon.activeSrc &&
+      !props.icon.activeComponent
         ? css`
             transform: rotate(-180deg);
           `
@@ -37,7 +41,7 @@ export const AccordionBody = styled.div<AccordionContentStyledProps>`
   transition: height ${(props) => props.slideDuration}ms;
 
   ${(props) => {
-    if (!props.firstRender) {
+    if (props.contentHeight === 0) {
       return css`
         height: auto;
       `

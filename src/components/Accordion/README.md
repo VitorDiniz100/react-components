@@ -29,13 +29,14 @@ Este componente é o próprio acordeão onde iremos **_envolver_** nosso **conte
 
 **icon: Object**
 
-| Propriedade | Valor       | Descrição                                                                |
-| ----------- | ----------- | ------------------------------------------------------------------------ |
-| render      | JSX.Element | Componente renderizado quando o acordeão não estiver ativo (Obrigatório) |
-| active      | JSX.Element | Componente renderizado quando o acordeão estiver ativo                   |
-| rotate      | boolean     | Rotação do componente na ativação/desativação.                           |
-
-**Nota:** Só usaremos um dos efeitos para quando o acordeão ativar/desativar, active ou rotate.
+| Propriedade     | Valor       | Descrição                                                                                                             |
+| --------------- | ----------- | --------------------------------------------------------------------------------------------------------------------- |
+| type            | html, jsx   | Indica o elemento à ser usado como ícone (Obrigatório)                                                                |
+| component       | JSX.Element | Componente renderizado quando o acordeão não estiver ativo                                                            |
+| activeComponent | JSX.Element | Componente renderizado quando o acordeão estiver ativo                                                                |
+| src             | string      | Caminho da imagem à ser renderizada quando o acordeão não estiver ativo                                               |
+| activeSrc       | string      | Caminho da imagem à ser renderizada quando o acordeão estiver ativo                                                   |
+| rotate          | boolean     | Rotação do componente na ativação e desativação. So funcinará se o acordeão não renderizar outro ícone enquanto ativo |
 
 ---
 
@@ -45,20 +46,26 @@ Este componente é o próprio acordeão onde iremos **_envolver_** nosso **conte
 
 ### Exemplo 1:
 
-Neste exemplo estamos usando o acordeão com um ícone.
+Neste exemplo estamos usando um acordeão com um ícone e animação de rotação.
 
 ```js
-import * as Accordion from "../../components/Accordion";
-import { BsChevronDown } from "react-icons/bs";
+import * as Accordion from "./components/Accordion";
+import chevronDown from "./assets/chevron-down.svg";
 
-export function App() {
+export function AccordionExample() {
   return (
     <Accordion.Root>
       <Accordion.Item
-        title="Informações 1"
-        icon={{ render: <BsChevronDown /> }}
+        title="Lorem ipsum"
+        icon={{ type: "html", src: chevronDown, rotate: true }}
       >
-        <div>Conteúdo da informação 1</div>
+        <div className="content">
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
+          </p>
+        </div>
       </Accordion.Item>
     </Accordion.Root>
   );
@@ -67,34 +74,27 @@ export function App() {
 
 ### Exemplo 2:
 
-Neste exemplo estamos usando dois acordeões, sendo o primeiro, com a rotação do ícone ativa, e uma duração no slide de 600ms. O segundo está renderizando outro ícone enquanto ativo.
+Neste exemplo estamos usando um acordeão com ícones diferentes.
 
 ```js
-import * as Accordion from "../../components/Accordion";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { BsChevronDown } from "react-icons/bs";
+import * as Accordion from "./components/Accordion";
+import minus from "./assets/minus.svg";
+import plus from "./assets/plus.svg";
 
-export function App() {
+export function AccordionExample() {
   return (
     <Accordion.Root>
       <Accordion.Item
-        title="Informações 1"
-        icon={{
-          render: <BsChevronDown />,
-          rotate: true,
-        }}
-        slideDuration={600}
+        title="Lorem ipsum"
+        icon={{ type: "html", src: plus, activeSrc: minus }}
       >
-        <div>Conteúdo da informação 1</div>
-      </Accordion.Item>
-      <Accordion.Item
-        name="Informações 2"
-        icon={{
-          render: <AiOutlinePlus />,
-          active: <AiOutlineMinus />,
-        }}
-      >
-        <div>Conteúdo da informação 2</div>
+        <div className="content">
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
+          </p>
+        </div>
       </Accordion.Item>
     </Accordion.Root>
   );
@@ -103,34 +103,31 @@ export function App() {
 
 ### Exemplo 3:
 
-Este exemplo é igual ao exemplo 2, exceto pelo fato que poderemos abrir múltiplos acordeões, prop passada no Root.
+Neste exemplo usamos a funcionalidade de múltiplos acordeões e ícones como componentes.
 
 ```js
-import * as Accordion from "../../components/Accordion";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { BsChevronDown } from "react-icons/bs";
+import * as Accordion from "./components/Accordion";
+import Minus from "./components/Icons/Minus";
+import Plus from "./components/Icons/Plus";
 
-export function App() {
+export function AccordionExample() {
   return (
     <Accordion.Root type="multiple">
       <Accordion.Item
-        title="Informações 1"
+        title="Lorem ipsum"
         icon={{
-          render: <BsChevronDown />,
-          rotate: true,
-        }}
-        slideDuration={600}
-      >
-        <div>Conteúdo da informação 1</div>
-      </Accordion.Item>
-      <Accordion.Item
-        name="Informações 2"
-        icon={{
-          render: <AiOutlinePlus />,
-          active: <AiOutlineMinus />,
+          type: "jsx",
+          component: <Plus />,
+          activeComponent: <Minus />,
         }}
       >
-        <div>Conteúdo da informação 2</div>
+        <div className="content">
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
+          </p>
+        </div>
       </Accordion.Item>
     </Accordion.Root>
   );

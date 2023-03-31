@@ -40,72 +40,73 @@ export function Item({
   slideDuration = 400,
   children,
 }: PropsWithChildren<ItemProps>) {
-  const [firstRender, setFirstRender] = useState<boolean>(false)
-  const [accordionIsOpen, setAccordionIsOpen] = useState<boolean>(true)
-  const [accordionContentHeight, setAccordionContentHeight] =
-    useState<number>(0)
-  const [accordionId, setAccordionId] = useState<string>('')
+  const [id, setId] = useState<string>('')
+  const [contentHeight, setContentHeight] = useState<number>(0)
+  const [isOpen, setIsOpen] = useState<boolean>(true)
 
   const { activeAccordion, type, addActiveAccordion } =
     useContext(AccordionContext)
 
   const contentRef = useRef<HTMLDivElement>(null)
 
-  const id = uuid()
+  const generatedId = uuid()
 
   function handleToggleContent() {
     if (type === 'single') {
-      addActiveAccordion(accordionId)
+      addActiveAccordion(id)
     }
 
-    setAccordionIsOpen(!accordionIsOpen)
+    setIsOpen(!isOpen)
   }
 
   useEffect(() => {
-    if (!firstRender && contentRef.current) {
-      setFirstRender(true)
-      setAccordionIsOpen(false)
-      setAccordionContentHeight(contentRef.current.clientHeight)
-    }
-  }, [firstRender])
-
-  useEffect(() => {
-    if (!accordionId.length && type === 'single') {
-      setAccordionId(id)
+    if (!id.length && type === 'single') {
+      setId(generatedId)
     }
 
-    if (activeAccordion !== accordionId && type === 'single') {
-      setAccordionIsOpen(false)
+    if (activeAccordion !== id && type === 'single') {
+      setIsOpen(false)
     }
-  }, [activeAccordion, type, accordionId, id])
+
+    if (contentHeight === 0 && contentRef.current) {
+      setContentHeight(contentRef.current.clientHeight)
+      setIsOpen(false)
+    }
+  }, [activeAccordion, contentHeight, type, id, generatedId])
 
   return (
     <S.AccordionItem
       className="accordion-item"
-      data-state={accordionIsOpen ? 'open' : 'close'}
+      data-state={isOpen ? 'open' : 'close'}
     >
       <S.AccordionHeader className="accordion-header">
         <S.AccordionTrigger
-          className={
-            accordionIsOpen ? 'accordion-trigger active' : 'accordion-trigger'
-          }
-          firstRender={firstRender}
-          isOpen={accordionIsOpen}
+          className={isOpen ? 'accordion-trigger active' : 'accordion-trigger'}
+          isOpen={isOpen}
           icon={icon}
           onClick={handleToggleContent}
         >
-          <span>{title}</span>
-          {icon && icon.active && accordionIsOpen ? icon.active : icon?.render}
+          <span className="accordion-title">{title}</span>
+
+          {icon?.type === 'html' && icon.src && (
+            <img
+              src={icon.activeSrc && isOpen ? icon.activeSrc : icon.src}
+              alt=""
+            />
+          )}
+
+          {icon?.type === 'jsx' &&
+            icon.component &&
+            (icon.activeComponent && isOpen
+              ? icon.activeComponent
+              : icon.component)}
         </S.AccordionTrigger>
       </S.AccordionHeader>
       <S.AccordionBody
-        className={
-          accordionIsOpen ? 'accordion-body visible' : 'accordion-body'
-        }
+        className={isOpen ? 'accordion-body visible' : 'accordion-body'}
         ref={contentRef}
-        firstRender={firstRender}
-        isOpen={accordionIsOpen}
-        contentHeight={accordionContentHeight}
+        isOpen={isOpen}
+        contentHeight={contentHeight}
         slideDuration={slideDuration}
       >
         {children}

@@ -3,13 +3,15 @@ type TypeRoot = 'single' | 'multiple'
 type SlideDuration = number
 
 interface IconProps {
-  render: JSX.Element
-  active?: JSX.Element
+  type: 'html' | 'jsx'
+  component?: JSX.Element
+  activeComponent?: JSX.Element
+  src?: string
+  activeSrc?: string
   rotate?: boolean
 }
 
 export interface AccordionItemStyledProps {
-  firstRender: boolean
   isOpen: boolean
 }
 
