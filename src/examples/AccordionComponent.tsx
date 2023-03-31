@@ -10,7 +10,9 @@ import plus from '../assets/plus.svg'
 
 export function AccordionComponent() {
   return (
-    <main className="accordion-component">
+    <div className="accordion-component">
+      <div className="accordion-example"></div>
+      <h3 className="heading-example">Accordion</h3>
       <Accordion.Root>
         <Accordion.Item
           title="Lorem ipsum"
@@ -79,6 +81,6 @@ export function AccordionComponent() {
           </div>
         </Accordion.Item>
       </Accordion.Root>
-    </main>
+    </div>
   )
 }
