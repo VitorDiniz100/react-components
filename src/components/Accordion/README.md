@@ -10,7 +10,7 @@ Este componente precisa **_envolver_** todos os componentes **Item**.
 
 ### Props
 
-**type: String**
+**type: string**
 
 | Valor    | Descrição                                              |
 | -------- | ------------------------------------------------------ |
@@ -23,21 +23,21 @@ Este componente é o próprio acordeão onde iremos **_envolver_** nosso **conte
 
 ### Props
 
-**title: String (Obrigatório)**
+**title: string (Obrigatório)**
 
 ---
 
 **icon: Object**
 
-| Propriedade     | Valor       | Descrição                                                                                                           |
-| --------------- | ----------- | ------------------------------------------------------------------------------------------------------------------- |
-| type            | html, jsx   | Indica o elemento à ser usado como ícone (Obrigatório)                                                              |
-| component       | JSX.Element | Componente renderizado quando o acordeão não estiver ativo                                                          |
-| activeComponent | JSX.Element | Componente renderizado quando o acordeão estiver ativo                                                              |
-| src             | string      | Caminho da imagem à ser renderizada quando o acordeão não estiver ativo                                             |
-| activeSrc       | string      | Caminho da imagem à ser renderizada quando o acordeão estiver ativo                                                 |
-| rotate          | boolean     | Rotação do elemento na ativação e desativação. So funcinará se o acordeão não renderizar outro ícone enquanto ativo |
-| rotateTime      | number      | Tempo de rotação do elemento em milissegundos. Default: 200ms                                                       |
+| Propriedade     | Valor       | Descrição                                                                                                               |
+| --------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------- |
+| type            | html, jsx   | É uma **string** que indica o elemento à ser usado como ícone (Obrigatório).                                            |
+| component       | JSX.Element | Componente renderizado quando o acordeão não estiver ativo                                                              |
+| activeComponent | JSX.Element | Componente renderizado quando o acordeão estiver ativo                                                                  |
+| src             | string      | Caminho da imagem à ser renderizada quando o acordeão não estiver ativo                                                 |
+| activeSrc       | string      | Caminho da imagem à ser renderizada quando o acordeão estiver ativo                                                     |
+| rotate          | boolean     | Rotação do elemento na ativação e desativação. So funcinará se o acordeão **não renderizar** outro ícone enquanto ativo |
+| rotateTime      | number      | Tempo de rotação do elemento em milissegundos. Default: 200ms                                                           |
 
 ---
 
