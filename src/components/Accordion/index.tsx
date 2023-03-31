@@ -1,17 +1,15 @@
 import {
-  createContext,
   PropsWithChildren,
   useContext,
   useEffect,
   useRef,
   useState,
 } from 'react'
-import { AccordionContextProps, RootProps, ItemProps } from './interfaces'
+import { RootProps, ItemProps } from './interfaces'
+import { Context } from './Context'
 import uuid from 'react-uuid'
 
 import * as S from './styles'
-
-const AccordionContext = createContext({} as AccordionContextProps)
 
 export function Root({
   type = 'single',
@@ -24,13 +22,11 @@ export function Root({
   }
 
   return (
-    <AccordionContext.Provider
-      value={{ activeAccordion, type, addActiveAccordion }}
-    >
-      <S.AccordionRoot className="accordion-root" data-type={type}>
+    <Context.Provider value={{ activeAccordion, type, addActiveAccordion }}>
+      <S.Root className="accordion-root" data-type={type}>
         {children}
-      </S.AccordionRoot>
-    </AccordionContext.Provider>
+      </S.Root>
+    </Context.Provider>
   )
 }
 
@@ -44,8 +40,7 @@ export function Item({
   const [contentHeight, setContentHeight] = useState<number>(0)
   const [isOpen, setIsOpen] = useState<boolean>(true)
 
-  const { activeAccordion, type, addActiveAccordion } =
-    useContext(AccordionContext)
+  const { activeAccordion, type, addActiveAccordion } = useContext(Context)
 
   const contentRef = useRef<HTMLDivElement>(null)
 
@@ -75,20 +70,15 @@ export function Item({
   }, [activeAccordion, contentHeight, type, id, generatedId])
 
   return (
-    <S.AccordionItem
-      className="accordion-item"
-      data-state={isOpen ? 'open' : 'close'}
-    >
-      <S.AccordionHeader className="accordion-header">
-        <S.AccordionTrigger
+    <S.Item className="accordion-item" data-state={isOpen ? 'open' : 'close'}>
+      <S.Header className="accordion-header">
+        <S.Trigger
           className={isOpen ? 'accordion-trigger active' : 'accordion-trigger'}
           isOpen={isOpen}
           icon={icon}
           onClick={handleToggleContent}
         >
-          <S.AccordionTitle className="accordion-title">
-            {title}
-          </S.AccordionTitle>
+          <S.Title className="accordion-title">{title}</S.Title>
 
           {icon?.type === 'html' && icon.src && (
             <img
@@ -102,9 +92,9 @@ export function Item({
             (icon.activeComponent && isOpen
               ? icon.activeComponent
               : icon.component)}
-        </S.AccordionTrigger>
-      </S.AccordionHeader>
-      <S.AccordionBody
+        </S.Trigger>
+      </S.Header>
+      <S.Body
         className={isOpen ? 'accordion-body visible' : 'accordion-body'}
         ref={contentRef}
         isOpen={isOpen}
@@ -112,7 +102,7 @@ export function Item({
         slideDuration={slideDuration}
       >
         {children}
-      </S.AccordionBody>
-    </S.AccordionItem>
+      </S.Body>
+    </S.Item>
   )
 }

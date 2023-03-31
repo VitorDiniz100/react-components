@@ -1,21 +1,18 @@
 import styled, { css } from 'styled-components'
-import {
-  AccordionContentStyledProps,
-  AccordionTriggerStyledProps,
-} from './interfaces'
+import { ContentStyledProps, TriggerStyledProps } from './interfaces'
 
 const BaseContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-export const AccordionRoot = styled(BaseContainer)``
+export const Root = styled(BaseContainer)``
 
-export const AccordionItem = styled(BaseContainer)``
+export const Item = styled(BaseContainer)``
 
-export const AccordionHeader = styled(BaseContainer)``
+export const Header = styled(BaseContainer)``
 
-export const AccordionTrigger = styled.button<AccordionTriggerStyledProps>`
+export const Trigger = styled.button<TriggerStyledProps>`
   all: unset;
   display: flex;
   flex-direction: row;
@@ -40,11 +37,11 @@ export const AccordionTrigger = styled.button<AccordionTriggerStyledProps>`
   }
 `
 
-export const AccordionTitle = styled.span`
+export const Title = styled.span`
   font-size: 1rem;
 `
 
-export const AccordionBody = styled(BaseContainer)<AccordionContentStyledProps>`
+export const Body = styled(BaseContainer)<ContentStyledProps>`
   height: 0;
   overflow: hidden;
   transition: height ${(props) => props.slideDuration}ms;

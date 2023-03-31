@@ -12,20 +12,20 @@ interface IconProps {
   rotateTime?: number
 }
 
-export interface AccordionItemStyledProps {
+export interface ItemStyledProps {
   isOpen: boolean
 }
 
-export interface AccordionTriggerStyledProps extends AccordionItemStyledProps {
+export interface TriggerStyledProps extends ItemStyledProps {
   icon?: IconProps
 }
 
-export interface AccordionContentStyledProps extends AccordionItemStyledProps {
+export interface ContentStyledProps extends ItemStyledProps {
   contentHeight: number
   slideDuration: SlideDuration
 }
 
-export interface AccordionContextProps {
+export interface ContextProps {
   activeAccordion: string
   type: TypeRoot
   addActiveAccordion: (id: string) => void
