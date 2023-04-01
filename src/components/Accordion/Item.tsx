@@ -11,8 +11,6 @@ import { ItemProps } from './interfaces'
 import { Context } from './Context'
 import uuid from 'react-uuid'
 
-import * as S from './styles'
-
 export default function Item({
   title,
   icon,
@@ -20,11 +18,11 @@ export default function Item({
   children,
 }: PropsWithChildren<ItemProps>) {
   const [isOpen, setIsOpen] = useState<boolean>(true)
-  const [bodyHeight, setBodyHeight] = useState<number>(0)
+  const [contentHeight, setContentHeight] = useState<number>(0)
 
   const { activeAccordion, type, addActiveAccordion } = useContext(Context)
 
-  const bodyRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   const id = useMemo(() => {
     return uuid()
@@ -43,22 +41,20 @@ export default function Item({
       setIsOpen(false)
     }
 
-    if (bodyHeight === 0 && bodyRef.current) {
-      setBodyHeight(bodyRef.current.clientHeight)
+    if (contentHeight === 0 && contentRef.current) {
+      setContentHeight(contentRef.current.clientHeight)
       setIsOpen(false)
     }
-  }, [activeAccordion, bodyHeight, type, id])
+  }, [activeAccordion, contentHeight, type, id])
 
   return (
-    <S.Item className="accordion-item" data-state={isOpen ? 'open' : 'close'}>
-      <S.Header className="accordion-header">
-        <S.Trigger
+    <div className="accordion-item" data-state={isOpen ? 'open' : 'closed'}>
+      <div className="accordion-header">
+        <button
           className={isOpen ? 'accordion-trigger active' : 'accordion-trigger'}
-          isOpen={isOpen}
-          icon={icon}
           onClick={handleToggleContent}
         >
-          <S.Title className="accordion-title">{title}</S.Title>
+          <span className="accordion-title">{title}</span>
 
           {icon?.type === 'html' && icon.src && (
             <img
@@ -72,17 +68,23 @@ export default function Item({
             (icon.activeComponent && isOpen
               ? icon.activeComponent
               : icon.component)}
-        </S.Trigger>
-      </S.Header>
-      <S.Body
-        className={isOpen ? 'accordion-body visible' : 'accordion-body'}
-        ref={bodyRef}
-        isOpen={isOpen}
-        bodyHeight={bodyHeight}
-        slideDuration={slideDuration}
+        </button>
+      </div>
+      <div
+        className={
+          isOpen ? 'accordion-content open' : 'accordion-content closed'
+        }
+        ref={contentRef}
+        style={{
+          height: `${contentHeight === 0 ? 'auto' : ''} ${
+            isOpen ? `${contentHeight}px` : 0
+          }`,
+          overflow: 'hidden',
+          transition: `height ${slideDuration}ms`,
+        }}
       >
         {children}
-      </S.Body>
-    </S.Item>
+      </div>
+    </div>
   )
 }

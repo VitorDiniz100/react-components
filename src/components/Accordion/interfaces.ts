@@ -8,21 +8,6 @@ interface IconProps {
   activeComponent?: JSX.Element
   src?: string
   activeSrc?: string
-  rotate?: boolean
-  rotateTime?: number
-}
-
-export interface ItemStyledProps {
-  isOpen: boolean
-}
-
-export interface TriggerStyledProps extends ItemStyledProps {
-  icon?: IconProps
-}
-
-export interface BodyStyledProps extends ItemStyledProps {
-  bodyHeight: number
-  slideDuration: SlideDuration
 }
 
 export interface ContextProps {

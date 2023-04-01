@@ -2,8 +2,6 @@ import { PropsWithChildren, useCallback, useState } from 'react'
 import { RootProps } from './interfaces'
 import { Context } from './Context'
 
-import * as S from './styles'
-
 export default function Root({
   type = 'single',
   children,
@@ -16,9 +14,7 @@ export default function Root({
 
   return (
     <Context.Provider value={{ activeAccordion, type, addActiveAccordion }}>
-      <S.Root className="accordion-root" data-type={type}>
-        {children}
-      </S.Root>
+      {children}
     </Context.Provider>
   )
 }
