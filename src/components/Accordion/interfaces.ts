@@ -1,7 +1,5 @@
 type TypeRoot = 'single' | 'multiple'
 
-type SlideDuration = number
-
 interface IconProps {
   type: 'html' | 'jsx'
   component?: JSX.Element
@@ -23,5 +21,5 @@ export interface RootProps {
 export interface ItemProps {
   title: string
   icon?: IconProps
-  slideDuration?: SlideDuration
+  slideDuration?: number
 }
