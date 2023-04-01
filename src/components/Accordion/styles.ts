@@ -1,16 +1,20 @@
 import styled, { css } from 'styled-components'
 import { BodyStyledProps, TriggerStyledProps } from './interfaces'
 
-const BaseContainer = styled.div`
+export const Root = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-export const Root = styled(BaseContainer)``
+export const Item = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
-export const Item = styled(BaseContainer)``
-
-export const Header = styled(BaseContainer)``
+export const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
 export const Trigger = styled.button<TriggerStyledProps>`
   all: unset;
@@ -41,8 +45,10 @@ export const Title = styled.span`
   font-size: 1rem;
 `
 
-export const Body = styled(BaseContainer)<BodyStyledProps>`
+export const Body = styled.div<BodyStyledProps>`
   height: 0;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   transition: height ${(props) => props.slideDuration}ms;
 
