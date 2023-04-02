@@ -21,5 +21,7 @@ export interface RootProps {
 export interface ItemProps {
   title: string
   icon?: IconProps
+  height?: number
+  overflow?: boolean
   slideDuration?: number
 }

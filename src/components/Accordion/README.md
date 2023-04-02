@@ -10,36 +10,35 @@ Este componente precisa **envolver** um componente **Item**.
 
 ### Props
 
-**type: String**
-
-| Valor    | Descrição                                              |
-| -------- | ------------------------------------------------------ |
-| single   | Apenas um acordeão poderá ser aberto por vez (Default) |
-| multiple | Mútiplos acordeões poderão ser abertos                 |
+| Propriedade | Tipo                   | Descrição                                                                   |
+| ----------- | ---------------------- | --------------------------------------------------------------------------- |
+| type        | "single" ou "multiple" | Determina quantos acordeões poderão ser abertos, ou vários. Default: single |
 
 ## Item
 
 Este componente é o próprio acordeão onde iremos **envolver** nosso **conteúdo**.
 
-### Props
-
-**title: String (Obrigatório)**
-
----
-
-**icon: Object**
-
-| Propriedade     | Tipo        | Descrição                                                                          |
-| --------------- | ----------- | ---------------------------------------------------------------------------------- |
-| type            | String      | Valor **(html ou jsx)** que indica o elemento à ser usado como ícone (Obrigatório) |
-| component       | JSX.Element | Componente renderizado quando o acordeão não estiver ativo                         |
-| activeComponent | JSX.Element | Componente renderizado quando o acordeão estiver ativo                             |
-| src             | String      | Caminho da imagem à ser renderizada quando o acordeão não estiver ativo            |
-| activeSrc       | String      | Caminho da imagem à ser renderizada quando o acordeão estiver ativo                |
+| Propriedade   | Tipo    | Descrição                                                                                      |
+| ------------- | ------- | ---------------------------------------------------------------------------------------------- |
+| title         | string  | Título no cabeçalho do acordeão (Obrigatório)                                                  |
+| icon          | object  | Configuração do ícone à ser renderizado no cabeçalho                                           |
+| slideDuration | number  | Tempo de animação do slide em milissegundos                                                    |
+| height        | number  | Altura customizada do conteúdo                                                                 |
+| overflow      | boolean | Gerar barra de rolagem caso a altura seja menor que o conteúdo (Usar em conjunto com o height) |
 
 ---
 
-**slideDuration: Number (millisecond). Default: 400ms**
+**Configuração do objeto icon**
+
+| Propriedade     | Tipo            | Descrição                                                               |
+| --------------- | --------------- | ----------------------------------------------------------------------- |
+| type            | "html" ou "jsx" | Indica o elemento à ser usado como ícone (Obrigatório)                  |
+| component       | JSX.Element     | Componente renderizado quando o acordeão não estiver ativo              |
+| activeComponent | JSX.Element     | Componente renderizado quando o acordeão estiver ativo                  |
+| src             | string          | Caminho da imagem à ser renderizada quando o acordeão não estiver ativo |
+| activeSrc       | string          | Caminho da imagem à ser renderizada quando o acordeão estiver ativo     |
+
+---
 
 ## Exemplos
 
@@ -48,15 +47,15 @@ Este componente é o próprio acordeão onde iremos **envolver** nosso **conteú
 Neste exemplo somente um acordeão poderá ser aberto por vez.
 
 ```js
-import * as Accordion from "./components/Accordion";
+import { AccordionItem, AccordionRoot } from "./components/Accordion";
 import chevronDown from "./assets/chevron-down.svg";
 import minus from "./assets/minus.svg";
 import plus from "./assets/plus.svg";
 
 export function AccordionExample() {
   return (
-    <Accordion.Root>
-      <Accordion.Item
+    <AccordionRoot>
+      <AccordionItem
         title="Lorem ipsum"
         icon={{ type: "html", src: chevronDown }}
       >
@@ -67,8 +66,8 @@ export function AccordionExample() {
             nesciunt eligendi dolore veniam alias est repellendus officia rem.
           </p>
         </div>
-      </Accordion.Item>
-      <Accordion.Item
+      </AccordionItem>
+      <AccordionItem
         title="Lorem ipsum"
         icon={{ type: "html", src: plus, activeSrc: minus }}
       >
@@ -79,8 +78,8 @@ export function AccordionExample() {
             nesciunt eligendi dolore veniam alias est repellendus officia rem.
           </p>
         </div>
-      </Accordion.Item>
-    </Accordion.Root>
+      </AccordionItem>
+    </AccordionRoot>
   );
 }
 ```
@@ -90,21 +89,23 @@ export function AccordionExample() {
 Neste exemplo mútiplos acordeões poderão ser abertos.
 
 ```js
-import * as Accordion from "./components/Accordion";
+import { AccordionItem, AccordionRoot } from "./components/Accordion";
 import ChevronDown from "./components/Icons/ChevronDown";
 import Minus from "./components/Icons/Minus";
 import Plus from "./components/Icons/Plus";
 
 export function AccordionExample() {
   return (
-    <Accordion.Root type="multiple">
-      <Accordion.Item
+    <AccordionRoot type="multiple">
+      <AccordionItem
         title="Lorem ipsum"
         icon={{
           type: "jsx",
           component: <ChevronDown />,
         }}
         slideDuration={600}
+        height={100}
+        overflow
       >
         <div className="content">
           <p className="text">
@@ -112,9 +113,29 @@ export function AccordionExample() {
             numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
             nesciunt eligendi dolore veniam alias est repellendus officia rem.
           </p>
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
+          </p>
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
+          </p>
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
+          </p>
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
+          </p>
         </div>
-      </Accordion.Item>
-      <Accordion.Item
+      </AccordionItem>
+      <AccordionItem
         title="Lorem ipsum"
         icon={{
           type: "jsx",
@@ -122,6 +143,8 @@ export function AccordionExample() {
           activeComponent: <Minus />,
         }}
         slideDuration={600}
+        height={100}
+        overflow
       >
         <div className="content">
           <p className="text">
@@ -129,9 +152,29 @@ export function AccordionExample() {
             numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
             nesciunt eligendi dolore veniam alias est repellendus officia rem.
           </p>
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
+          </p>
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
+          </p>
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
+          </p>
+          <p className="text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
+          </p>
         </div>
-      </Accordion.Item>
-    </Accordion.Root>
+      </AccordionItem>
+    </AccordionRoot>
   );
 }
 ```
