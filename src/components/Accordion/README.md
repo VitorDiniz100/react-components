@@ -6,13 +6,13 @@ Acordeão dinâmico com controle predefinido.
 
 ## Root
 
-Este componente precisa **envolver** um componente **Item**.
+Este componente precisa **envolver** um ou mais componentes **Item**.
 
 ### Props
 
-| Propriedade | Tipo                   | Descrição                                                                   |
-| ----------- | ---------------------- | --------------------------------------------------------------------------- |
-| type        | "single" ou "multiple" | Determina quantos acordeões poderão ser abertos, ou vários. Default: single |
+| Propriedade | Tipo                   | Descrição                                                                |
+| ----------- | ---------------------- | ------------------------------------------------------------------------ |
+| type        | "single" ou "multiple" | Determina se um ou varios acordeões poderão ser abertos. Default: single |
 
 ## Item
 
