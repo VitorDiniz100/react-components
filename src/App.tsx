@@ -1,44 +1,51 @@
 import { useState } from 'react'
-import * as Accordion from './components/Accordion'
-import ChevronDown from './components/Icons/ChevronDown'
+import { AccordionItem, AccordionRoot } from './components/Accordion'
+import Plus from './components/Icons/Plus'
+import Minus from './components/Icons/Minus'
+import Lorem from './components/Lorem'
 
 import './App.css'
 
-function App() {
+export default function App() {
   const [count, setCount] = useState<number>(0)
 
   return (
     <div className="App">
       <div className="count">
-        <button className="count-btn" onClick={() => setCount(count + 1)}>
+        <button
+          className="count-btn"
+          id="btn-count"
+          onClick={() => setCount(count + 1)}
+        >
           Count: {count}
         </button>
       </div>
-      <div className="accordion-container">
-        <Accordion.Root>
-          <Accordion.Item
-            title="Informações"
-            icon={{ type: 'jsx', component: <ChevronDown /> }}
-            slideDuration={1000}
-          >
-            <p>conteúdo 1</p>
-          </Accordion.Item>
-          <Accordion.Item
-            title="Informações"
-            icon={{ type: 'jsx', component: <ChevronDown /> }}
-          >
-            <p>conteúdo 1</p>
-          </Accordion.Item>
-          <Accordion.Item
-            title="Informações"
-            icon={{ type: 'jsx', component: <ChevronDown /> }}
-          >
-            <p>conteúdo 1</p>
-          </Accordion.Item>
-        </Accordion.Root>
-      </div>
+      <AccordionExample />
     </div>
   )
 }
 
-export default App
+const AccordionExample = () => {
+  return (
+    <div
+      className="accordion-example"
+      style={{
+        width: 300,
+      }}
+    >
+      <AccordionRoot type="multiple">
+        <AccordionItem
+          title="Lorem ipsum"
+          icon={{
+            type: 'jsx',
+            component: <Plus />,
+            activeComponent: <Minus />,
+          }}
+          slideDuration={600}
+        >
+          <Lorem />
+        </AccordionItem>
+      </AccordionRoot>
+    </div>
+  )
+}
