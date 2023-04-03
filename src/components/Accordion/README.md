@@ -8,35 +8,33 @@ Acordeão dinâmico com controle predefinido.
 
 Este componente precisa **envolver** um ou mais componentes **Item**.
 
-### Props
-
-| Propriedade | Tipo                   | Descrição                                                                |
-| ----------- | ---------------------- | ------------------------------------------------------------------------ |
-| type        | "single" ou "multiple" | Determina se um ou varios acordeões poderão ser abertos. Default: single |
+| Propriedade | Tipo                   | Descrição                                                                    |
+| ----------- | ---------------------- | ---------------------------------------------------------------------------- |
+| type        | "single" ou "multiple" | Determina se um ou varios acordeões poderão ser abertos. **Default: single** |
 
 ## Item
 
 Este componente é o próprio acordeão onde iremos **envolver** nosso **conteúdo**.
 
-| Propriedade   | Tipo    | Descrição                                                                                      |
-| ------------- | ------- | ---------------------------------------------------------------------------------------------- |
-| title         | string  | Título no cabeçalho do acordeão (Obrigatório)                                                  |
-| icon          | object  | Configuração do ícone à ser renderizado no cabeçalho                                           |
-| slideDuration | number  | Tempo de animação do slide em milissegundos                                                    |
-| height        | number  | Altura customizada do conteúdo                                                                 |
-| overflow      | boolean | Gerar barra de rolagem caso a altura seja menor que o conteúdo (Usar em conjunto com o height) |
+| Propriedade   | Tipo    | Descrição                                                                                          |
+| ------------- | ------- | -------------------------------------------------------------------------------------------------- |
+| title         | string  | Título no cabeçalho do acordeão. **(Obrigatório)**                                                 |
+| icon          | object  | Configuração do ícone à ser renderizado no cabeçalho                                               |
+| slideDuration | number  | Tempo de animação do slide em milissegundos. **Default: 400ms**                                    |
+| height        | number  | Altura customizada do conteúdo                                                                     |
+| overflow      | boolean | Gerar barra de rolagem caso a altura seja menor que o conteúdo **(Usar em conjunto com o height)** |
 
 ---
 
 **Configuração do objeto icon**
 
-| Propriedade     | Tipo            | Descrição                                                               |
-| --------------- | --------------- | ----------------------------------------------------------------------- |
-| type            | "html" ou "jsx" | Indica o elemento à ser usado como ícone (Obrigatório)                  |
-| component       | JSX.Element     | Componente renderizado quando o acordeão não estiver ativo              |
-| activeComponent | JSX.Element     | Componente renderizado quando o acordeão estiver ativo                  |
-| src             | string          | Caminho da imagem à ser renderizada quando o acordeão não estiver ativo |
-| activeSrc       | string          | Caminho da imagem à ser renderizada quando o acordeão estiver ativo     |
+| Propriedade     | Tipo            | Descrição                                                                                       |
+| --------------- | --------------- | ----------------------------------------------------------------------------------------------- |
+| type            | "html" ou "jsx" | Indica o elemento à ser usado como ícone. **(Obrigatório)**                                     |
+| component       | JSX.Element     | Componente renderizado quando o acordeão não estiver ativo. **Usar com type jsx**               |
+| activeComponent | JSX.Element     | Componente renderizado quando o acordeão estiver ativo. **Usar com type jsx**                   |
+| src             | string          | Caminho da imagem à ser renderizada quando o acordeão não estiver ativo. **Usar com type html** |
+| activeSrc       | string          | Caminho da imagem à ser renderizada quando o acordeão estiver ativo. **Usar com type html**     |
 
 ---
 
@@ -48,7 +46,6 @@ Neste exemplo somente um acordeão poderá ser aberto por vez.
 
 ```js
 import { AccordionItem, AccordionRoot } from "./components/Accordion";
-import chevronDown from "./assets/chevron-down.svg";
 import minus from "./assets/minus.svg";
 import plus from "./assets/plus.svg";
 
@@ -57,7 +54,7 @@ export function AccordionExample() {
     <AccordionRoot>
       <AccordionItem
         title="Lorem ipsum"
-        icon={{ type: "html", src: chevronDown }}
+        icon={{ type: "html", src: plus, activeSrc: minus }}
       >
         <div className="content">
           <p className="text">
@@ -90,7 +87,6 @@ Neste exemplo mútiplos acordeões poderão ser abertos.
 
 ```js
 import { AccordionItem, AccordionRoot } from "./components/Accordion";
-import ChevronDown from "./components/Icons/ChevronDown";
 import Minus from "./components/Icons/Minus";
 import Plus from "./components/Icons/Plus";
 
@@ -101,7 +97,8 @@ export function AccordionExample() {
         title="Lorem ipsum"
         icon={{
           type: "jsx",
-          component: <ChevronDown />,
+          component: <Plus />,
+          activeComponent: <Minus />,
         }}
         slideDuration={600}
         height={100}
