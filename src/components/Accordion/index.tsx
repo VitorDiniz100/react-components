@@ -13,7 +13,7 @@ import uuid from 'react-uuid'
 
 const Context = createContext({} as ContextProps)
 
-export function AccordionRoot({
+export function AccordionProvider({
   type = 'single',
   children,
 }: PropsWithChildren<RootProps>) {
@@ -33,8 +33,6 @@ export function AccordionRoot({
 export function AccordionItem({
   title,
   icon,
-  height = 0,
-  overflow = false,
   slideDuration = 400,
   children,
 }: PropsWithChildren<ItemProps>) {
@@ -58,16 +56,11 @@ export function AccordionItem({
   }
 
   useEffect(() => {
-    if (contentHeight === 0 && contentHeight === 0 && contentRef.current) {
+    if (contentHeight === 0 && contentRef.current) {
       setContentHeight(contentRef.current.clientHeight)
       setIsOpen(false)
     }
-
-    if (contentHeight === 0 && height > 0) {
-      setContentHeight(height)
-      setIsOpen(false)
-    }
-  }, [contentHeight, height])
+  }, [contentHeight, isOpen])
 
   useEffect(() => {
     if (activeAccordion !== id && type === 'single') {
@@ -76,10 +69,14 @@ export function AccordionItem({
   }, [activeAccordion, type, id])
 
   return (
-    <div className="accordion-item" data-state={isOpen ? 'open' : 'closed'}>
+    <div
+      className="accordion-item"
+      data-type={type}
+      data-state={isOpen ? 'open' : 'closed'}
+    >
       <div className="accordion-header">
         <button
-          className={isOpen ? 'accordion-trigger active' : 'accordion-trigger'}
+          className={`accordion-trigger${isOpen ? ' active' : ''}`}
           onClick={handleToggleContent}
         >
           <span className="accordion-title">{title}</span>
@@ -99,15 +96,12 @@ export function AccordionItem({
         </button>
       </div>
       <div
-        className={
-          isOpen ? 'accordion-content open' : 'accordion-content closed'
-        }
+        className={`accordion-content ${isOpen ? 'open' : 'closed'}`}
         ref={contentRef}
         style={{
-          height: `${contentHeight === 0 ? 'auto' : ''} ${
-            isOpen ? `${contentHeight}px` : 0
-          }`,
-          overflow: overflow ? 'auto' : 'hidden',
+          height:
+            contentHeight === 0 ? 'auto' : isOpen ? `${contentHeight}px` : '0',
+          overflow: 'hidden',
           transition: `height ${slideDuration}ms`,
         }}
       >
