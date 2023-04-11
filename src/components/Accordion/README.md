@@ -4,7 +4,7 @@ Acordeão dinâmico com controle predefinido.
 
 ### Componentes
 
-## Root
+## Provider
 
 Este componente precisa **envolver** um ou mais componentes **Item**.
 
