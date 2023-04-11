@@ -39,15 +39,15 @@ Este componente é o próprio acordeão onde iremos **envolver** nosso **conteú
 ## Exemplo
 
 ```js
-import { AccordionItem, AccordionRoot } from "./components/Accordion";
+import * as Accordion from "./components/Accordion";
 import Minus from "./components/Icons/Minus";
 import Plus from "./components/Icons/Plus";
 
 export function AccordionExample() {
   return (
     <div className="accordion-wrapper">
-      <AccordionRoot type="multiple">
-        <AccordionItem
+      <Accordion.Provider type="multiple">
+        <Accordion.Item
           title="Lorem ipsum"
           icon={{
             type: "jsx",
@@ -64,8 +64,8 @@ export function AccordionExample() {
               officia rem.
             </p>
           </div>
-        </AccordionItem>
-        <AccordionItem
+        </Accordion.Item>
+        <Accordion.Item
           title="Lorem ipsum"
           icon={{
             type: "jsx",
@@ -82,8 +82,8 @@ export function AccordionExample() {
               officia rem.
             </p>
           </div>
-        </AccordionItem>
-      </AccordionRoot>
+        </Accordion.Item>
+      </Accordion.Provider>
     </div>
   );
 }
