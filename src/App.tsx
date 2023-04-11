@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AccordionItem, AccordionProvider } from './components/Accordion'
+import * as Accordion from './components/Accordion'
 import Plus from './components/Icons/Plus'
 import Minus from './components/Icons/Minus'
 import Lorem from './components/Lorem'
@@ -33,8 +33,8 @@ const AccordionExample = () => {
         width: 300,
       }}
     >
-      <AccordionProvider>
-        <AccordionItem
+      <Accordion.Provider type="multiple">
+        <Accordion.Item
           title="Lorem ipsum"
           icon={{
             type: 'jsx',
@@ -45,8 +45,8 @@ const AccordionExample = () => {
           <div>
             <Lorem />
           </div>
-        </AccordionItem>
-        <AccordionItem
+        </Accordion.Item>
+        <Accordion.Item
           title="Lorem ipsum"
           icon={{
             type: 'jsx',
@@ -57,8 +57,8 @@ const AccordionExample = () => {
           <div>
             <Lorem />
           </div>
-        </AccordionItem>
-        <AccordionItem
+        </Accordion.Item>
+        <Accordion.Item
           title="Lorem ipsum"
           icon={{
             type: 'jsx',
@@ -69,8 +69,8 @@ const AccordionExample = () => {
           <div>
             <Lorem />
           </div>
-        </AccordionItem>
-      </AccordionProvider>
+        </Accordion.Item>
+      </Accordion.Provider>
     </div>
   )
 }
