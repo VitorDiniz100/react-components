@@ -33,7 +33,7 @@ const AccordionExample = () => {
         width: 300,
       }}
     >
-      <Accordion.Provider type="multiple">
+      <Accordion.Provider type="single">
         <Accordion.Item
           title="Lorem ipsum"
           icon={{

@@ -2,11 +2,11 @@ import { PropsWithChildren, useState } from 'react'
 import { Context } from './Context'
 
 export interface ProviderProps {
-  type?: 'single' | 'multiple'
+  type: 'single' | 'multiple'
 }
 
 export default function Provider({
-  type = 'single',
+  type,
   children,
 }: PropsWithChildren<ProviderProps>) {
   const [activeAccordion, setActiveAccordion] = useState<string>('')

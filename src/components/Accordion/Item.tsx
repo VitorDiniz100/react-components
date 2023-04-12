@@ -20,7 +20,6 @@ interface IconProps {
 export interface ItemProps {
   title: string
   icon?: IconProps
-
   slideDuration?: number
 }
 
@@ -65,17 +64,19 @@ export default function Item({
   if (!type) return null
 
   return (
-    <div
-      className="accordion-item"
-      data-type={type}
-      data-state={isOpen ? 'open' : 'closed'}
-    >
-      <div className="accordion-header">
+    <div className="accordion-item" data-state={isOpen ? 'open' : 'closed'}>
+      <div className="accordion-header" data-state={isOpen ? 'open' : 'closed'}>
         <button
-          className={`accordion-trigger${isOpen ? ' active' : ''}`}
+          className="accordion-trigger"
+          data-state={isOpen ? 'open' : 'closed'}
           onClick={handleToggleContent}
         >
-          <span className="accordion-title">{title}</span>
+          <span
+            className="accordion-title"
+            data-state={isOpen ? 'open' : 'closed'}
+          >
+            {title}
+          </span>
 
           {icon?.type === 'html' && icon.src && (
             <img
@@ -92,7 +93,8 @@ export default function Item({
         </button>
       </div>
       <div
-        className={`accordion-content ${isOpen ? 'open' : 'closed'}`}
+        className="accordion-content"
+        data-state={isOpen ? 'open' : 'closed'}
         ref={contentRef}
         style={{
           height:

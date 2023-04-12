@@ -1,4 +1,4 @@
-import Provider from './components/Provider'
-import Item from './components/Item'
+import Provider from './Provider'
+import Item from './Item'
 
 export { Provider, Item }
