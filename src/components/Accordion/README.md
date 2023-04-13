@@ -16,11 +16,13 @@ Este componente precisa **envolver** um ou mais componentes **Item**.
 
 Este componente é o próprio acordeão onde iremos **envolver** nosso **conteúdo**.
 
-| Propriedade   | Tipo   | Descrição                                                       |
-| ------------- | ------ | --------------------------------------------------------------- |
-| title         | string | Título no cabeçalho do acordeão. **Obrigatório**                |
-| icon          | object | Configuração do ícone à ser renderizado no cabeçalho            |
-| slideDuration | number | Tempo de animação do slide em milissegundos. **Default: 400ms** |
+| Propriedade   | Tipo     | Descrição                                                                                              |
+| ------------- | -------- | ------------------------------------------------------------------------------------------------------ |
+| title         | string   | Título no cabeçalho do acordeão. **Obrigatório**                                                       |
+| icon          | object   | Configuração do ícone à ser renderizado no cabeçalho                                                   |
+| slideDuration | number   | Tempo de animação do slide em milissegundos. **Default: 400ms**                                        |
+| uncontrolled  | boolean  | Determinar se o acordeão irá ser controlado pelo **Provider** com **type: single.** **Default: false** |
+| onTrigger     | function | Função **sem retorno** executada no acionamento, usar em conjunto com a prop **uncontrolled.**         |
 
 ---
 
@@ -54,7 +56,6 @@ export function AccordionExample() {
             children: <Plus />,
             activeChildren: <Minus />,
           }}
-          slideDuration={600}
         >
           <div className="content">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
@@ -69,7 +70,6 @@ export function AccordionExample() {
             children: <Plus />,
             activeChildren: <Minus />,
           }}
-          slideDuration={600}
         >
           <div className="content">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi

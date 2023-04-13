@@ -60,12 +60,16 @@ interface ItemProps {
   title: string
   icon?: IconProps
   slideDuration?: number
+  uncontrolled?: boolean
+  onTrigger?: () => void
 }
 
 function Item({
   title,
   icon,
   slideDuration = 400,
+  uncontrolled = false,
+  onTrigger = () => {},
   children,
 }: PropsWithChildren<ItemProps>) {
   const [isOpen, setIsOpen] = useState<boolean>(true)
@@ -73,7 +77,7 @@ function Item({
 
   const { activeAccordion, type, addActiveAccordion } = useContext(Context)
 
-  const dataState = isOpen ? 'open' : 'closed'
+  const dataState = uncontrolled ? 'uncontrolled' : isOpen ? 'open' : 'closed'
 
   const contentRef = useRef<HTMLDivElement>(null)
 
@@ -84,9 +88,9 @@ function Item({
   function handleToggleContent() {
     setIsOpen(!isOpen)
 
-    if (type === 'single') {
-      addActiveAccordion(id)
-    }
+    uncontrolled && onTrigger()
+
+    type === 'single' && !uncontrolled && addActiveAccordion(id)
   }
 
   useEffect(() => {
@@ -97,24 +101,18 @@ function Item({
   }, [contentHeight, isOpen])
 
   useEffect(() => {
-    if (activeAccordion !== id && type === 'single') {
+    if (activeAccordion !== id && type === 'single' && !uncontrolled) {
       setIsOpen(false)
     }
-  }, [activeAccordion, type, id])
+  }, [activeAccordion, type, id, uncontrolled])
 
   if (!type) return null
 
   return (
     <div className="accordion-item" data-state={dataState}>
-      <div className="accordion-header" data-state={dataState}>
-        <button
-          className="accordion-trigger"
-          data-state={dataState}
-          onClick={handleToggleContent}
-        >
-          <span className="accordion-title" data-state={dataState}>
-            {title}
-          </span>
+      <div className="accordion-header">
+        <button className="accordion-trigger" onClick={handleToggleContent}>
+          <span className="accordion-title">{title}</span>
 
           {icon?.type === 'img' && icon.src && (
             <img
@@ -130,19 +128,24 @@ function Item({
               : icon.children)}
         </button>
       </div>
-      <div
-        className="accordion-content"
-        data-state={dataState}
-        ref={contentRef}
-        style={{
-          height:
-            contentHeight === 0 ? 'auto' : isOpen ? `${contentHeight}px` : '0',
-          overflow: 'hidden',
-          transition: `height ${slideDuration}ms`,
-        }}
-      >
-        {children}
-      </div>
+      {children && !uncontrolled && (
+        <div
+          className="accordion-content"
+          ref={contentRef}
+          style={{
+            height:
+              contentHeight === 0
+                ? 'auto'
+                : isOpen
+                ? `${contentHeight}px`
+                : '0',
+            overflow: 'hidden',
+            transition: `height ${slideDuration}ms`,
+          }}
+        >
+          {children}
+        </div>
+      )}
     </div>
   )
 }
