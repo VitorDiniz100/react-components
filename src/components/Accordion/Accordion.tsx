@@ -1,4 +1,5 @@
 import {
+  createContext,
   PropsWithChildren,
   useContext,
   useEffect,
@@ -7,7 +8,44 @@ import {
   useState,
 } from 'react'
 import uuid from 'react-uuid'
-import { Context } from './Context'
+
+// -------------------------//
+// AccordionContext
+// -------------------------//
+
+interface ContextProps {
+  activeAccordion: string
+  type: 'single' | 'multiple'
+  addActiveAccordion: (id: string) => void
+}
+
+const Context = createContext({} as ContextProps)
+
+/* ----------------------------
+// AccordionProvider
+// ------------------------- */
+
+interface ProviderProps {
+  type: 'single' | 'multiple'
+}
+
+function Provider({ type, children }: PropsWithChildren<ProviderProps>) {
+  const [activeAccordion, setActiveAccordion] = useState<string>('')
+
+  function addActiveAccordion(id: string) {
+    setActiveAccordion(id)
+  }
+
+  return (
+    <Context.Provider value={{ activeAccordion, type, addActiveAccordion }}>
+      {children}
+    </Context.Provider>
+  )
+}
+
+/* ----------------------------
+// AccordionItem
+// ------------------------- */
 
 interface IconProps {
   type: 'html' | 'jsx'
@@ -17,13 +55,13 @@ interface IconProps {
   activeSrc?: string
 }
 
-export interface ItemProps {
+interface ItemProps {
   title: string
   icon?: IconProps
   slideDuration?: number
 }
 
-export default function Item({
+function Item({
   title,
   icon,
   slideDuration = 400,
@@ -108,3 +146,5 @@ export default function Item({
     </div>
   )
 }
+
+export { Provider, Item }
