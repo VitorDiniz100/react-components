@@ -8,9 +8,9 @@ Acordeão dinâmico com controle predefinido.
 
 Este componente precisa **envolver** um ou mais componentes **Item**.
 
-| Propriedade | Tipo                   | Descrição                                                                |
-| ----------- | ---------------------- | ------------------------------------------------------------------------ |
-| type        | "single" ou "multiple" | Determina se um ou varios acordeões poderão ser abertos. **Obrigatório** |
+| Propriedade | Tipo                   | Descrição                                                              |
+| ----------- | ---------------------- | ---------------------------------------------------------------------- |
+| type        | "single" ou "multiple" | Determina se um ou mais acordeões poderão ser abertos. **Obrigatório** |
 
 ## Item
 
@@ -26,13 +26,13 @@ Este componente é o próprio acordeão onde iremos **envolver** nosso **conteú
 
 **Configuração do objeto icon**
 
-| Propriedade     | Tipo            | Descrição                                                                                       |
-| --------------- | --------------- | ----------------------------------------------------------------------------------------------- |
-| type            | "html" ou "jsx" | Indica o elemento à ser usado como ícone. **Obrigatório**                                       |
-| component       | JSX.Element     | Componente renderizado quando o acordeão não estiver ativo. **Usar com type jsx**               |
-| activeComponent | JSX.Element     | Componente renderizado quando o acordeão estiver ativo. **Usar com type jsx**                   |
-| src             | string          | Caminho da imagem à ser renderizada quando o acordeão não estiver ativo. **Usar com type html** |
-| activeSrc       | string          | Caminho da imagem à ser renderizada quando o acordeão estiver ativo. **Usar com type html**     |
+| Propriedade    | Tipo            | Descrição                                                                                      |
+| -------------- | --------------- | ---------------------------------------------------------------------------------------------- |
+| type           | "img" ou "node" | Indica o elemento à ser usado como ícone. **Obrigatório**                                      |
+| children       | node            | Elemento renderizado quando o acordeão não estiver ativo. **Usar com type node**               |
+| activeChildren | node            | Elemento renderizado quando o acordeão estiver ativo. **Usar com type node**                   |
+| src            | string          | Caminho da imagem à ser renderizada quando o acordeão não estiver ativo. **Usar com type img** |
+| activeSrc      | string          | Caminho da imagem à ser renderizada quando o acordeão estiver ativo. **Usar com type img**     |
 
 ---
 
@@ -50,37 +50,31 @@ export function AccordionExample() {
         <Accordion.Item
           title="Lorem ipsum"
           icon={{
-            type: "jsx",
-            component: <Plus />,
-            activeComponent: <Minus />,
+            type: "node",
+            children: <Plus />,
+            activeChildren: <Minus />,
           }}
           slideDuration={600}
         >
           <div className="content">
-            <p className="text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Excepturi numquam quia iste nam? Fugit modi, sit odio iste iure
-              sint sequi nesciunt eligendi dolore veniam alias est repellendus
-              officia rem.
-            </p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
           </div>
         </Accordion.Item>
         <Accordion.Item
           title="Lorem ipsum"
           icon={{
-            type: "jsx",
-            component: <Plus />,
-            activeComponent: <Minus />,
+            type: "node",
+            children: <Plus />,
+            activeChildren: <Minus />,
           }}
           slideDuration={600}
         >
           <div className="content">
-            <p className="text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Excepturi numquam quia iste nam? Fugit modi, sit odio iste iure
-              sint sequi nesciunt eligendi dolore veniam alias est repellendus
-              officia rem.
-            </p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            numquam quia iste nam? Fugit modi, sit odio iste iure sint sequi
+            nesciunt eligendi dolore veniam alias est repellendus officia rem.
           </div>
         </Accordion.Item>
       </Accordion.Provider>

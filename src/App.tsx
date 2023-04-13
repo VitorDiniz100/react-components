@@ -37,9 +37,9 @@ const AccordionExample = () => {
         <Accordion.Item
           title="Lorem ipsum"
           icon={{
-            type: 'jsx',
-            component: <Plus />,
-            activeComponent: <Minus />,
+            type: 'node',
+            children: <Plus />,
+            activeChildren: <Minus />,
           }}
         >
           <div>
@@ -49,9 +49,9 @@ const AccordionExample = () => {
         <Accordion.Item
           title="Lorem ipsum"
           icon={{
-            type: 'jsx',
-            component: <Plus />,
-            activeComponent: <Minus />,
+            type: 'node',
+            children: <Plus />,
+            activeChildren: <Minus />,
           }}
         >
           <div>
@@ -61,9 +61,9 @@ const AccordionExample = () => {
         <Accordion.Item
           title="Lorem ipsum"
           icon={{
-            type: 'jsx',
-            component: <Plus />,
-            activeComponent: <Minus />,
+            type: 'node',
+            children: <Plus />,
+            activeChildren: <Minus />,
           }}
         >
           <div>

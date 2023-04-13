@@ -1,6 +1,7 @@
 import {
   createContext,
   PropsWithChildren,
+  ReactNode,
   useContext,
   useEffect,
   useMemo,
@@ -48,9 +49,9 @@ function Provider({ type, children }: PropsWithChildren<ProviderProps>) {
 // ------------------------- */
 
 interface IconProps {
-  type: 'html' | 'jsx'
-  component?: JSX.Element
-  activeComponent?: JSX.Element
+  type: 'img' | 'node'
+  children?: ReactNode
+  activeChildren?: ReactNode
   src?: string
   activeSrc?: string
 }
@@ -71,6 +72,8 @@ function Item({
   const [contentHeight, setContentHeight] = useState<number>(0)
 
   const { activeAccordion, type, addActiveAccordion } = useContext(Context)
+
+  const dataState = isOpen ? 'open' : 'closed'
 
   const contentRef = useRef<HTMLDivElement>(null)
 
@@ -102,37 +105,34 @@ function Item({
   if (!type) return null
 
   return (
-    <div className="accordion-item" data-state={isOpen ? 'open' : 'closed'}>
-      <div className="accordion-header" data-state={isOpen ? 'open' : 'closed'}>
+    <div className="accordion-item" data-state={dataState}>
+      <div className="accordion-header" data-state={dataState}>
         <button
           className="accordion-trigger"
-          data-state={isOpen ? 'open' : 'closed'}
+          data-state={dataState}
           onClick={handleToggleContent}
         >
-          <span
-            className="accordion-title"
-            data-state={isOpen ? 'open' : 'closed'}
-          >
+          <span className="accordion-title" data-state={dataState}>
             {title}
           </span>
 
-          {icon?.type === 'html' && icon.src && (
+          {icon?.type === 'img' && icon.src && (
             <img
               src={icon.activeSrc && isOpen ? icon.activeSrc : icon.src}
               alt=""
             />
           )}
 
-          {icon?.type === 'jsx' &&
-            icon.component &&
-            (icon.activeComponent && isOpen
-              ? icon.activeComponent
-              : icon.component)}
+          {icon?.type === 'node' &&
+            icon.children &&
+            (icon.activeChildren && isOpen
+              ? icon.activeChildren
+              : icon.children)}
         </button>
       </div>
       <div
         className="accordion-content"
-        data-state={isOpen ? 'open' : 'closed'}
+        data-state={dataState}
         ref={contentRef}
         style={{
           height:
