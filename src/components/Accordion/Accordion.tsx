@@ -61,7 +61,7 @@ interface ItemProps {
   icon?: IconProps
   slideDuration?: number
   uncontrolled?: boolean
-  onTrigger?: () => void
+  onActive?: () => void
 }
 
 function Item({
@@ -69,7 +69,7 @@ function Item({
   icon,
   slideDuration = 400,
   uncontrolled = false,
-  onTrigger = () => {},
+  onActive = () => {},
   children,
 }: PropsWithChildren<ItemProps>) {
   const [isOpen, setIsOpen] = useState<boolean>(true)
@@ -88,7 +88,7 @@ function Item({
   function handleToggleContent() {
     setIsOpen(!isOpen)
 
-    uncontrolled && onTrigger()
+    uncontrolled && onActive()
 
     type === 'single' && !uncontrolled && addActiveAccordion(id)
   }
