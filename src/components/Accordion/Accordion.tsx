@@ -77,8 +77,6 @@ function Item({
 
   const { activeAccordion, type, addActiveAccordion } = useContext(Context)
 
-  const dataState = uncontrolled ? 'uncontrolled' : isOpen ? 'open' : 'closed'
-
   const contentRef = useRef<HTMLDivElement>(null)
 
   const id = useMemo(() => {
@@ -109,7 +107,10 @@ function Item({
   if (!type) return null
 
   return (
-    <div className="accordion-item" data-state={dataState}>
+    <div
+      className="accordion-item"
+      data-state={uncontrolled ? 'uncontrolled' : isOpen ? 'open' : 'closed'}
+    >
       <div className="accordion-header">
         <button className="accordion-trigger" onClick={handleToggleContent}>
           <span className="accordion-title">{title}</span>
@@ -128,7 +129,7 @@ function Item({
               : icon.children)}
         </button>
       </div>
-      {children && !uncontrolled && (
+      {children && (
         <div
           className="accordion-content"
           ref={contentRef}

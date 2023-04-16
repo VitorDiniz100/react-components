@@ -22,7 +22,7 @@ Este componente é o próprio acordeão onde iremos **envolver** nosso **conteú
 | icon          | object   | Configuração do ícone à ser renderizado no cabeçalho                                           |
 | slideDuration | number   | Tempo de animação do slide em milissegundos. **Default: 400ms**                                |
 | uncontrolled  | boolean  | Determinar se o acordeão irá ser controlado pelo **Provider**. **Default: false**              |
-| onActive      | function | Função **sem retorno** executada no acionamento, usar em conjunto com a prop **uncontrolled.** |
+| onActive      | function | Função **sem retorno** executada no acionamento. **Requer a prop uncontrolled** |
 
 ---
 
