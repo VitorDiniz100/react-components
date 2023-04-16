@@ -69,7 +69,7 @@ function Item({
   icon,
   slideDuration = 400,
   uncontrolled = false,
-  onActive = () => {},
+  onActive = Function,
   children,
 }: PropsWithChildren<ItemProps>) {
   const [isOpen, setIsOpen] = useState<boolean>(true)
@@ -88,9 +88,9 @@ function Item({
   function handleToggleContent() {
     setIsOpen(!isOpen)
 
-    uncontrolled && onActive()
+    if (uncontrolled) onActive()
 
-    type === 'single' && !uncontrolled && addActiveAccordion(id)
+    if (type === 'single' && !uncontrolled) addActiveAccordion(id)
   }
 
   useEffect(() => {
