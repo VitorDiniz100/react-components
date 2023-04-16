@@ -16,13 +16,13 @@ Este componente precisa **envolver** um ou mais componentes **Item**.
 
 Este componente é o próprio acordeão onde iremos **envolver** nosso **conteúdo**.
 
-| Propriedade   | Tipo     | Descrição                                                                                      |
-| ------------- | -------- | ---------------------------------------------------------------------------------------------- |
-| title         | string   | Título no cabeçalho do acordeão. **Obrigatório**                                               |
-| icon          | object   | Configuração do ícone à ser renderizado no cabeçalho                                           |
-| slideDuration | number   | Tempo de animação do slide em milissegundos. **Default: 400ms**                                |
-| uncontrolled  | boolean  | Determinar se o acordeão irá ser controlado pelo **Provider**. **Default: false**              |
-| onActive      | function | Função **sem retorno** executada no acionamento. **Requer a prop uncontrolled** |
+| Propriedade   | Tipo     | Descrição                                                                         |
+| ------------- | -------- | --------------------------------------------------------------------------------- |
+| title         | string   | Título no cabeçalho do acordeão. **Obrigatório**                                  |
+| icon          | object   | Configuração do ícone à ser renderizado no cabeçalho                              |
+| slideDuration | number   | Tempo de animação do slide em milissegundos. **Default: 400ms**                   |
+| uncontrolled  | boolean  | Determinar se o acordeão irá ser controlado pelo **Provider**. **Default: false** |
+| onActive      | function | Função executada no acionamento. **Requer a prop uncontrolled**                   |
 
 ---
 
