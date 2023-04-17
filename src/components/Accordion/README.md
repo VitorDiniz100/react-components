@@ -38,6 +38,14 @@ Este componente é o próprio acordeão onde iremos **envolver** nosso **conteú
 
 ---
 
+| Classes            |
+| ------------------ |
+| accordion-provider |
+| accordion-item     |
+| accordion-header   |
+| accordion-trigger  |
+| accordion-content  |
+
 ## Exemplo
 
 ```js

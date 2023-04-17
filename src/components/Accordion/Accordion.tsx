@@ -8,11 +8,12 @@ import {
   useRef,
   useState,
 } from 'react'
+import classNames from 'classnames'
 import uuid from 'react-uuid'
 
-// -------------------------//
+/* ----------------------------
 // AccordionContext
-// -------------------------//
+// ------------------------- */
 
 interface ContextProps {
   activeAccordion: string
@@ -39,7 +40,9 @@ function Provider({ type, children }: PropsWithChildren<ProviderProps>) {
 
   return (
     <Context.Provider value={{ activeAccordion, type, addActiveAccordion }}>
-      {children}
+      <div className="accordion-provider" data-type={type}>
+        {children}
+      </div>
     </Context.Provider>
   )
 }
@@ -79,11 +82,15 @@ function Item({
 
   const contentRef = useRef<HTMLDivElement>(null)
 
-  const id = useMemo(() => {
-    return uuid()
-  }, [])
+  const id = useMemo(() => uuid(), [])
+
+  const dataState = uncontrolled ? 'uncontrolled' : isOpen ? 'open' : 'closed'
+
+  const height =
+    contentHeight === 0 ? 'auto' : isOpen ? `${contentHeight}px` : '0'
 
   function handleToggleContent() {
+    console.log(id)
     setIsOpen(!isOpen)
 
     if (uncontrolled) onActive()
@@ -108,8 +115,10 @@ function Item({
 
   return (
     <div
-      className="accordion-item"
-      data-state={uncontrolled ? 'uncontrolled' : isOpen ? 'open' : 'closed'}
+      className={classNames('accordion-item', {
+        active: isOpen && !uncontrolled,
+      })}
+      data-state={dataState}
     >
       <div className="accordion-header">
         <button className="accordion-trigger" onClick={handleToggleContent}>
@@ -134,12 +143,7 @@ function Item({
           className="accordion-content"
           ref={contentRef}
           style={{
-            height:
-              contentHeight === 0
-                ? 'auto'
-                : isOpen
-                ? `${contentHeight}px`
-                : '0',
+            height,
             overflow: 'hidden',
             transition: `height ${slideDuration}ms`,
           }}
