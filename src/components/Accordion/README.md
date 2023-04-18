@@ -44,6 +44,7 @@ Este componente é o próprio acordeão onde iremos **envolver** nosso **conteú
 | accordion-item     |
 | accordion-header   |
 | accordion-trigger  |
+| accordion-title    |
 | accordion-content  |
 
 ## Exemplo

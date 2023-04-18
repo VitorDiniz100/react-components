@@ -8,7 +8,6 @@ import {
   useRef,
   useState,
 } from 'react'
-import classNames from 'classnames'
 import uuid from 'react-uuid'
 
 /* ----------------------------
@@ -113,15 +112,16 @@ function Item({
   if (!type) return null
 
   return (
-    <div
-      className={classNames('accordion-item', {
-        active: isOpen && !uncontrolled,
-      })}
-      data-state={dataState}
-    >
-      <div className="accordion-header">
-        <button className="accordion-trigger" onClick={handleToggleContent}>
-          <span className="accordion-title">{title}</span>
+    <div className="accordion-item" data-state={dataState}>
+      <div className="accordion-header" data-state={dataState}>
+        <button
+          className="accordion-trigger"
+          data-state={dataState}
+          onClick={handleToggleContent}
+        >
+          <span className="accordion-title" data-state={dataState}>
+            {title}
+          </span>
 
           {icon?.type === 'img' && icon.src && (
             <img
@@ -140,12 +140,13 @@ function Item({
       {children && (
         <div
           className="accordion-content"
-          ref={contentRef}
+          data-state={dataState}
           style={{
             height,
             overflow: 'hidden',
             transition: `height ${slideDuration}ms`,
           }}
+          ref={contentRef}
         >
           {children}
         </div>
