@@ -90,7 +90,6 @@ function Item({
     contentHeight === 0 ? 'auto' : isOpen ? `${contentHeight}px` : '0'
 
   function handleToggleContent() {
-    console.log(id)
     setIsOpen(!isOpen)
 
     if (uncontrolled) onActive()
