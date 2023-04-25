@@ -1,5 +1,6 @@
 import {
   createContext,
+  CSSProperties,
   PropsWithChildren,
   ReactNode,
   useContext,
@@ -51,7 +52,7 @@ function Provider({ type, children }: PropsWithChildren<ProviderProps>) {
 // ------------------------- */
 
 interface IconProps {
-  render: ReactNode
+  element: ReactNode
   activeElement?: ReactNode
 }
 
@@ -68,7 +69,7 @@ function Item({
   icon,
   slideDuration = 400,
   uncontrolled = false,
-  onActive = Function,
+  onActive = () => null,
   children,
 }: PropsWithChildren<ItemProps>) {
   const [isOpen, setIsOpen] = useState<boolean>(true)
@@ -83,12 +84,16 @@ function Item({
 
   const dataState = isOpen ? 'open' : 'closed'
 
-  const height =
-    contentHeight.current === 0
-      ? 'auto'
-      : isOpen
-      ? `${contentHeight.current}px`
-      : '0'
+  const contentStyles: CSSProperties = {
+    height:
+      contentHeight.current === 0
+        ? 'auto'
+        : isOpen
+        ? `${contentHeight.current}px`
+        : '0',
+    overflow: 'hidden',
+    transition: `height ${slideDuration}ms`,
+  }
 
   function handleToggleContent() {
     if (type === 'single' && !uncontrolled) addActiveAccordion(id)
@@ -110,7 +115,7 @@ function Item({
     }
   }, [activeAccordion, type, id, uncontrolled])
 
-  if (!type) return null
+  if (!type || !children) return null
 
   return (
     <div className="accordion-item" data-state={dataState}>
@@ -125,18 +130,14 @@ function Item({
           </span>
 
           {icon &&
-            (icon.activeElement && isOpen ? icon.activeElement : icon.render)}
+            (icon.activeElement && isOpen ? icon.activeElement : icon.element)}
         </button>
       </div>
 
       <div
         className="accordion-content"
         data-state={dataState}
-        style={{
-          height,
-          overflow: 'hidden',
-          transition: `height ${slideDuration}ms`,
-        }}
+        style={contentStyles}
         ref={contentRef}
       >
         {children}

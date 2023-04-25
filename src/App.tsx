@@ -26,7 +26,7 @@ const AccordionExample = () => {
         <Accordion.Item
           title="Lorem 1"
           icon={{
-            render: <Plus />,
+            element: <Plus />,
             activeElement: <Minus />,
           }}
         >
@@ -40,7 +40,7 @@ const AccordionExample = () => {
         <Accordion.Item
           title="Lorem 2"
           icon={{
-            render: <Plus />,
+            element: <Plus />,
             activeElement: <Minus />,
           }}
         >
@@ -54,11 +54,18 @@ const AccordionExample = () => {
         <Accordion.Item
           title="Lorem 3"
           icon={{
-            render: <Plus />,
+            element: <Plus />,
+            activeElement: <Minus />,
           }}
-          uncontrolled
-          onActive={() => alert('open modal')}
-        />
+          onActive={() => alert('Hello World!')}
+        >
+          <div>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum
+            fugiat temporibus numquam tempore esse, ipsam praesentium autem odio
+            nostrum. Vitae veniam totam obcaecati repudiandae doloribus
+            similique possimus, quis aspernatur nisi.
+          </div>
+        </Accordion.Item>
       </Accordion.Provider>
     </div>
   )
