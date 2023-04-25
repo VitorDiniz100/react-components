@@ -26,9 +26,8 @@ const AccordionExample = () => {
         <Accordion.Item
           title="Lorem 1"
           icon={{
-            type: 'node',
-            children: <Plus />,
-            activeChildren: <Minus />,
+            render: <Plus />,
+            activeElement: <Minus />,
           }}
         >
           <div>
@@ -41,9 +40,8 @@ const AccordionExample = () => {
         <Accordion.Item
           title="Lorem 2"
           icon={{
-            type: 'node',
-            children: <Plus />,
-            activeChildren: <Minus />,
+            render: <Plus />,
+            activeElement: <Minus />,
           }}
         >
           <div>
@@ -56,8 +54,7 @@ const AccordionExample = () => {
         <Accordion.Item
           title="Lorem 3"
           icon={{
-            type: 'node',
-            children: <Plus />,
+            render: <Plus />,
           }}
           uncontrolled
           onActive={() => alert('open modal')}

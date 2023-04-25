@@ -51,11 +51,8 @@ function Provider({ type, children }: PropsWithChildren<ProviderProps>) {
 // ------------------------- */
 
 interface IconProps {
-  type: 'img' | 'node'
-  children?: ReactNode
-  activeChildren?: ReactNode
-  src?: string
-  activeSrc?: string
+  render: ReactNode
+  activeElement?: ReactNode
 }
 
 interface ItemProps {
@@ -75,33 +72,37 @@ function Item({
   children,
 }: PropsWithChildren<ItemProps>) {
   const [isOpen, setIsOpen] = useState<boolean>(true)
-  const [contentHeight, setContentHeight] = useState<number>(0)
 
   const { activeAccordion, type, addActiveAccordion } = useContext(Context)
 
   const contentRef = useRef<HTMLDivElement>(null)
 
+  const contentHeight = useRef<number>(0)
+
   const id = useMemo(() => uuid(), [])
 
-  const dataState = uncontrolled ? 'uncontrolled' : isOpen ? 'open' : 'closed'
+  const dataState = isOpen ? 'open' : 'closed'
 
   const height =
-    contentHeight === 0 ? 'auto' : isOpen ? `${contentHeight}px` : '0'
+    contentHeight.current === 0
+      ? 'auto'
+      : isOpen
+      ? `${contentHeight.current}px`
+      : '0'
 
   function handleToggleContent() {
-    setIsOpen(!isOpen)
-
-    if (uncontrolled) onActive()
-
     if (type === 'single' && !uncontrolled) addActiveAccordion(id)
+
+    setIsOpen(!isOpen)
+    onActive()
   }
 
   useEffect(() => {
-    if (contentHeight === 0 && contentRef.current) {
-      setContentHeight(contentRef.current.clientHeight)
+    if (contentHeight.current === 0 && contentRef.current) {
+      contentHeight.current = contentRef.current.clientHeight
       setIsOpen(false)
     }
-  }, [contentHeight, isOpen])
+  }, [])
 
   useEffect(() => {
     if (activeAccordion !== id && type === 'single' && !uncontrolled) {
@@ -123,34 +124,23 @@ function Item({
             {title}
           </span>
 
-          {icon?.type === 'img' && icon.src && (
-            <img
-              src={icon.activeSrc && isOpen ? icon.activeSrc : icon.src}
-              alt=""
-            />
-          )}
-
-          {icon?.type === 'node' &&
-            icon.children &&
-            (icon.activeChildren && isOpen
-              ? icon.activeChildren
-              : icon.children)}
+          {icon &&
+            (icon.activeElement && isOpen ? icon.activeElement : icon.render)}
         </button>
       </div>
-      {children && (
-        <div
-          className="accordion-content"
-          data-state={dataState}
-          style={{
-            height,
-            overflow: 'hidden',
-            transition: `height ${slideDuration}ms`,
-          }}
-          ref={contentRef}
-        >
-          {children}
-        </div>
-      )}
+
+      <div
+        className="accordion-content"
+        data-state={dataState}
+        style={{
+          height,
+          overflow: 'hidden',
+          transition: `height ${slideDuration}ms`,
+        }}
+        ref={contentRef}
+      >
+        {children}
+      </div>
     </div>
   )
 }
