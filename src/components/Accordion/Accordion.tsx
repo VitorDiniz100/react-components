@@ -1,14 +1,4 @@
-import {
-  createContext,
-  CSSProperties,
-  PropsWithChildren,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import React from 'react'
 import uuid from 'react-uuid'
 
 /* ----------------------------
@@ -21,7 +11,7 @@ interface ContextProps {
   addActiveAccordion: (id: string) => void
 }
 
-const Context = createContext({} as ContextProps)
+const Context = React.createContext({} as ContextProps)
 
 /* ----------------------------
 // AccordionProvider
@@ -31,12 +21,14 @@ interface ProviderProps {
   type: 'single' | 'multiple'
 }
 
-function Provider({ type, children }: PropsWithChildren<ProviderProps>) {
-  const [activeAccordion, setActiveAccordion] = useState<string>('')
+function Provider({ type, children }: React.PropsWithChildren<ProviderProps>) {
+  const [activeAccordion, setActiveAccordion] = React.useState<string>('')
 
   function addActiveAccordion(id: string) {
     setActiveAccordion(id)
   }
+
+  if (!type || !children) return null
 
   return (
     <Context.Provider value={{ activeAccordion, type, addActiveAccordion }}>
@@ -52,8 +44,8 @@ function Provider({ type, children }: PropsWithChildren<ProviderProps>) {
 // ------------------------- */
 
 interface IconProps {
-  element: ReactNode
-  activeElement?: ReactNode
+  element: React.ReactNode
+  activeElement?: React.ReactNode
 }
 
 interface ItemProps {
@@ -71,20 +63,22 @@ function Item({
   uncontrolled = false,
   onActive = () => null,
   children,
-}: PropsWithChildren<ItemProps>) {
-  const [isOpen, setIsOpen] = useState<boolean>(true)
+}: React.PropsWithChildren<ItemProps>) {
+  const [id] = React.useState(uuid())
+  const [isOpen, setIsOpen] = React.useState<boolean>(true)
 
-  const { activeAccordion, type, addActiveAccordion } = useContext(Context)
+  const { activeAccordion, type, addActiveAccordion } =
+    React.useContext(Context)
 
-  const contentRef = useRef<HTMLDivElement>(null)
+  const contentRef = React.useRef<HTMLDivElement>(null)
 
-  const contentHeight = useRef<number>(0)
-
-  const id = useMemo(() => uuid(), [])
+  const contentHeight = React.useRef<number>(0)
 
   const dataState = isOpen ? 'open' : 'closed'
 
-  const contentStyles: CSSProperties = {
+  const dataControlled = uncontrolled ? 'false' : 'true'
+
+  const contentStyles: React.CSSProperties = {
     height:
       contentHeight.current === 0
         ? 'auto'
@@ -102,14 +96,14 @@ function Item({
     onActive()
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (contentHeight.current === 0 && contentRef.current) {
       contentHeight.current = contentRef.current.clientHeight
       setIsOpen(false)
     }
   }, [])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (activeAccordion !== id && type === 'single' && !uncontrolled) {
       setIsOpen(false)
     }
@@ -118,14 +112,27 @@ function Item({
   if (!type || !children) return null
 
   return (
-    <div className="accordion-item" data-state={dataState}>
-      <div className="accordion-header" data-state={dataState}>
+    <div
+      className="accordion-item"
+      data-state={dataState}
+      data-controlled={dataControlled}
+    >
+      <div
+        className="accordion-header"
+        data-state={dataState}
+        data-controlled={dataControlled}
+      >
         <button
           className="accordion-trigger"
           data-state={dataState}
+          data-controlled={dataControlled}
           onClick={handleToggleContent}
         >
-          <span className="accordion-title" data-state={dataState}>
+          <span
+            className="accordion-title"
+            data-state={dataState}
+            data-controlled={dataControlled}
+          >
             {title}
           </span>
 
@@ -137,6 +144,7 @@ function Item({
       <div
         className="accordion-content"
         data-state={dataState}
+        data-controlled={dataControlled}
         style={contentStyles}
         ref={contentRef}
       >
