@@ -9,7 +9,7 @@ const accordionStyles = {
 export function AccordionExample() {
   return (
     <div className="accordion-example" style={accordionStyles}>
-      <Accordion.Provider type="multiple">
+      <Accordion.Provider type="single">
         <Accordion.Item
           title="Lorem 1"
           icon={{

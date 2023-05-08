@@ -1,69 +1,17 @@
 import React from 'react'
-import uuid from 'react-uuid'
 
-/* ----------------------------
-// AccordionContext
-// ------------------------- */
+import { ItemProps } from '../interfaces/item'
+import { uuid } from '../utils/uuid'
+import { Context } from './Context'
 
-interface ContextProps {
-  activeAccordion: string
-  type: 'single' | 'multiple'
-  addActiveAccordion: (id: string) => void
-}
-
-const Context = React.createContext({} as ContextProps)
-
-/* ----------------------------
-// AccordionProvider
-// ------------------------- */
-
-interface ProviderProps {
-  type: 'single' | 'multiple'
-}
-
-function Provider({ type, children }: React.PropsWithChildren<ProviderProps>) {
-  const [activeAccordion, setActiveAccordion] = React.useState<string>('')
-
-  function addActiveAccordion(id: string) {
-    setActiveAccordion(id)
-  }
-
-  if (!type || !children) return null
-
-  return (
-    <Context.Provider value={{ activeAccordion, type, addActiveAccordion }}>
-      <div className="accordion-provider" data-type={type}>
-        {children}
-      </div>
-    </Context.Provider>
-  )
-}
-
-/* ----------------------------
-// AccordionItem
-// ------------------------- */
-
-interface IconProps {
-  element: React.ReactNode
-  activeElement?: React.ReactNode
-}
-
-interface ItemProps {
-  title: string
-  icon?: IconProps
-  slideDuration?: number
-  uncontrolled?: boolean
-  onActive?: () => void
-}
-
-function Item({
+export function Item({
   title,
   icon,
   slideDuration = 400,
   uncontrolled = false,
-  onActive = () => null,
+  onActive = () => {},
   children,
-}: React.PropsWithChildren<ItemProps>) {
+}: ItemProps) {
   const [id] = React.useState(uuid())
   const [isOpen, setIsOpen] = React.useState<boolean>(true)
 
@@ -153,5 +101,3 @@ function Item({
     </div>
   )
 }
-
-export { Provider, Item }
