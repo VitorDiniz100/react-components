@@ -22,7 +22,7 @@ const accordionStyles: CSSProperties = {
 const AccordionExample = () => {
   return (
     <div className="accordion-example" style={accordionStyles}>
-      <AccordionProvider type="multiple">
+      <AccordionProvider type="single">
         <AccordionItem
           title="Lorem 1"
           icon={{
@@ -57,7 +57,7 @@ const AccordionExample = () => {
             element: <Plus />,
             activeElement: <Minus />,
           }}
-          onActive={() => alert('Hello World!')}
+          onTrigger={() => alert('Hello World!')}
         />
       </AccordionProvider>
     </div>

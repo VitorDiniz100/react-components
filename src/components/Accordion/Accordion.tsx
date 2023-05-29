@@ -57,7 +57,7 @@ interface AccordionItemProps {
   icon?: IconProps
   slideDuration?: number
   children?: React.ReactNode
-  onActive?: () => void
+  onTrigger?: () => void
 }
 
 function AccordionItem({
@@ -65,7 +65,7 @@ function AccordionItem({
   icon,
   slideDuration = 400,
   children,
-  onActive = () => {},
+  onTrigger = () => {},
 }: AccordionItemProps) {
   const [isOpen, setIsOpen] = React.useState<boolean>(true)
 
@@ -97,7 +97,7 @@ function AccordionItem({
     }
 
     setIsOpen(!isOpen)
-    onActive()
+    onTrigger()
   }
 
   React.useLayoutEffect(() => {
