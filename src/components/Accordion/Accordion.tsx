@@ -10,9 +10,9 @@ import React from 'react'
 // ------------------------- */
 
 interface ContextProps {
-  activeAccordion: string
+  activeAccordion: number | null
   type: 'single' | 'multiple'
-  addActiveAccordion: (id: string) => void
+  addActiveAccordion: (id: number) => void
 }
 
 const Context = React.createContext({} as ContextProps)
@@ -27,9 +27,11 @@ interface AccordionProviderProps {
 }
 
 function AccordionProvider({ type, children }: AccordionProviderProps) {
-  const [activeAccordion, setActiveAccordion] = React.useState<string>('')
+  const [activeAccordion, setActiveAccordion] = React.useState<number | null>(
+    null,
+  )
 
-  function addActiveAccordion(id: string) {
+  function addActiveAccordion(id: number) {
     setActiveAccordion(id)
   }
 
@@ -66,22 +68,19 @@ function AccordionItem({
   children,
   onTrigger = () => {},
 }: AccordionItemProps) {
-  const [isOpen, setIsOpen] = React.useState<boolean>(true)
+  const [isOpen, setIsOpen] = React.useState(true)
 
   const { activeAccordion, type, addActiveAccordion } =
     React.useContext(Context)
 
+  const id = React.useMemo(
+    () => Number(new Date()) * Math.floor(Math.random() * 9999),
+    [],
+  )
+
   const contentRef = React.useRef<HTMLDivElement>(null)
 
   const contentHeight = React.useRef<number>(0)
-
-  const id = React.useMemo(
-    () =>
-      `${title.replaceAll(' ', '').toLowerCase()}-${String(
-        Number(new Date()) + Math.floor(Math.random() * 9999),
-      )}`,
-    [title],
-  )
 
   const dataState = children ? (isOpen ? 'open' : 'closed') : 'uncontrolled'
 
