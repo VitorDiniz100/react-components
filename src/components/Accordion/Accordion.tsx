@@ -4,7 +4,6 @@
 // ------------------------- */
 
 import React from 'react'
-import uuid from 'react-uuid'
 
 /* ----------------------------
 // AccordionContext
@@ -76,7 +75,13 @@ function AccordionItem({
 
   const contentHeight = React.useRef<number>(0)
 
-  const id = React.useMemo(() => uuid(), [])
+  const id = React.useMemo(
+    () =>
+      `${title.replaceAll(' ', '').toLowerCase()}-${String(
+        Number(new Date()) + Math.floor(Math.random() * 9999),
+      )}`,
+    [title],
+  )
 
   const dataState = children ? (isOpen ? 'open' : 'closed') : 'uncontrolled'
 
