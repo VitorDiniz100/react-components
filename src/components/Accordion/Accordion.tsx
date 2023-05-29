@@ -1,14 +1,9 @@
-import {
-  createContext,
-  CSSProperties,
-  PropsWithChildren,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+/* ----------------------------
+// GitHub - VitorDiniz100
+// v1.0.0
+// ------------------------- */
+
+import React from 'react'
 import uuid from 'react-uuid'
 
 /* ----------------------------
@@ -21,18 +16,19 @@ interface ContextProps {
   addActiveAccordion: (id: string) => void
 }
 
-const Context = createContext({} as ContextProps)
+const Context = React.createContext({} as ContextProps)
 
 /* ----------------------------
 // AccordionProvider
 // ------------------------- */
 
-interface ProviderProps {
+interface AccordionProviderProps {
   type: 'single' | 'multiple'
+  children: React.ReactNode
 }
 
-function Provider({ type, children }: PropsWithChildren<ProviderProps>) {
-  const [activeAccordion, setActiveAccordion] = useState<string>('')
+function AccordionProvider({ type, children }: AccordionProviderProps) {
+  const [activeAccordion, setActiveAccordion] = React.useState<string>('')
 
   function addActiveAccordion(id: string) {
     setActiveAccordion(id)
@@ -52,39 +48,39 @@ function Provider({ type, children }: PropsWithChildren<ProviderProps>) {
 // ------------------------- */
 
 interface IconProps {
-  element: ReactNode
-  activeElement?: ReactNode
+  element: React.ReactNode
+  activeElement?: React.ReactNode
 }
 
-interface ItemProps {
+interface AccordionItemProps {
   title: string
   icon?: IconProps
   slideDuration?: number
-  uncontrolled?: boolean
+  children?: React.ReactNode
   onActive?: () => void
 }
 
-function Item({
+function AccordionItem({
   title,
   icon,
   slideDuration = 400,
-  uncontrolled = false,
-  onActive = () => null,
   children,
-}: PropsWithChildren<ItemProps>) {
-  const [isOpen, setIsOpen] = useState<boolean>(true)
+  onActive = () => {},
+}: AccordionItemProps) {
+  const [isOpen, setIsOpen] = React.useState<boolean>(true)
 
-  const { activeAccordion, type, addActiveAccordion } = useContext(Context)
+  const { activeAccordion, type, addActiveAccordion } =
+    React.useContext(Context)
 
-  const contentRef = useRef<HTMLDivElement>(null)
+  const contentRef = React.useRef<HTMLDivElement>(null)
 
-  const contentHeight = useRef<number>(0)
+  const contentHeight = React.useRef<number>(0)
 
-  const id = useMemo(() => uuid(), [])
+  const id = React.useMemo(() => uuid(), [])
 
-  const dataState = isOpen ? 'open' : 'closed'
+  const dataState = children ? (isOpen ? 'open' : 'closed') : 'uncontrolled'
 
-  const contentStyles: CSSProperties = {
+  const contentStyles: React.CSSProperties = {
     height:
       contentHeight.current === 0
         ? 'auto'
@@ -96,42 +92,47 @@ function Item({
   }
 
   function handleToggleContent() {
-    if (type === 'single' && !uncontrolled) addActiveAccordion(id)
+    if (type === 'single' && children) {
+      addActiveAccordion(id)
+    }
 
     setIsOpen(!isOpen)
     onActive()
   }
 
-  useEffect(() => {
+  React.useLayoutEffect(() => {
     if (contentHeight.current === 0 && contentRef.current) {
       contentHeight.current = contentRef.current.clientHeight
       setIsOpen(false)
     }
   }, [])
 
-  useEffect(() => {
-    if (activeAccordion !== id && type === 'single' && !uncontrolled) {
+  React.useEffect(() => {
+    if (activeAccordion !== id && type === 'single') {
       setIsOpen(false)
     }
-  }, [activeAccordion, type, id, uncontrolled])
+  }, [activeAccordion, type, id])
 
-  if (!type || !children) return null
+  if (!type) return null
 
   return (
     <div className="accordion-item" data-state={dataState}>
-      <div className="accordion-header" data-state={dataState}>
-        <button
-          className="accordion-trigger"
-          data-state={dataState}
-          onClick={handleToggleContent}
-        >
-          <span className="accordion-title" data-state={dataState}>
-            {title}
-          </span>
+      <div
+        className="accordion-header"
+        data-state={dataState}
+        onClick={handleToggleContent}
+      >
+        <span className="accordion-title" data-state={dataState}>
+          {title}
+        </span>
 
-          {icon &&
-            (icon.activeElement && isOpen ? icon.activeElement : icon.element)}
-        </button>
+        {icon && (
+          <span className="accordion-icon" data-state={dataState}>
+            {icon.activeElement && children && isOpen
+              ? icon.activeElement
+              : icon.element}
+          </span>
+        )}
       </div>
 
       <div
@@ -146,4 +147,4 @@ function Item({
   )
 }
 
-export { Provider, Item }
+export { AccordionProvider, AccordionItem }

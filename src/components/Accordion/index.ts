@@ -1,1 +1,1 @@
-export { Provider, Item } from './Accordion'
+export { AccordionProvider, AccordionItem } from './Accordion'

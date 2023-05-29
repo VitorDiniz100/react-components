@@ -21,8 +21,7 @@ Este componente é o próprio acordeão onde iremos **envolver** nosso **conteú
 | title         | string   | Título no cabeçalho do acordeão. **Obrigatório**                                                            |
 | icon          | object   | Configuração do ícone à ser renderizado no cabeçalho                                                        |
 | slideDuration | number   | Tempo de animação do slide em milissegundos. **Default: 400ms**                                             |
-| uncontrolled  | boolean  | **Usar com type single**. Determinar se o acordeão irá ser controlado pelo **Provider**. **Default: false** |
-| onActive      | function | Função executada no acionamento.                                                                            |
+| onTrigger      | function | Função executada no acionamento.                                                                           |
 
 ---
 
@@ -40,21 +39,21 @@ Este componente é o próprio acordeão onde iremos **envolver** nosso **conteú
 | accordion-provider |
 | accordion-item     |
 | accordion-header   |
-| accordion-trigger  |
 | accordion-title    |
+| accordion-icon     |
 | accordion-content  |
 
 ## Exemplo
 
 ```js
-import * as Accordion from "./components/Accordion";
+import { AccordionItem, AccordionProvider } from "./components/Accordion";
 import Plus from "./components/Icons/Plus";
 import Minus from "./components/Icons/Minus";
 
 export function AccordionExample() {
   return (
-    <Accordion.Provider type="single">
-      <Accordion.Item
+    <AccordionProvider type="single">
+      <AccordionItem
         title="Lorem 1"
         icon={{
           element: <Plus />,
@@ -67,8 +66,8 @@ export function AccordionExample() {
           Vitae veniam totam obcaecati repudiandae doloribus similique possimus,
           quis aspernatur nisi.
         </div>
-      </Accordion.Item>
-      <Accordion.Item
+      </AccordionItem>
+      <AccordionItem
         title="Lorem 2"
         icon={{
           element: <Plus />,
@@ -81,8 +80,8 @@ export function AccordionExample() {
           Vitae veniam totam obcaecati repudiandae doloribus similique possimus,
           quis aspernatur nisi.
         </div>
-      </Accordion.Item>
-    </Accordion.Provider>
+      </AccordionItem>
+    </AccordionProvider>
   );
 }
 ```
